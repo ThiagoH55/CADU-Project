@@ -55,10 +55,18 @@ export default function SignIn() {
 
     return (
         <form onSubmit={handleSubmit} className="text-red-600">
-            <label htmlFor="email">Em-mail</label>
+            <label htmlFor="email">E-mail</label>
             <input type="email" name="email" id="email" />
             <label htmlFor="password">Senha</label>
             <input type="password" name="password" id="password" />
+
+            {Object.keys(errors).length > 0 && (
+                <div>
+                    {(Object.entries(errors) as []).map((error, index) => (
+                        <p key={index}>{error[0]} {error[1]}</p>
+                    ))}
+                </div>
+            )}
 
             <button type="submit">Criar</button>
         </form>
