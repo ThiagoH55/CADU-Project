@@ -1,56 +1,59 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import { useState, FormEvent } from "react"
-import { z } from "zod"
+import { useState, useEffect } from "react"
+import { useFormState } from "react-dom"
+import { signUp } from "./actions"
+import { State } from "@/types"
+import { signIn } from "next-auth/react"
+
+const initialState: State = {
+    success: false,
+    errors: {}
+}
 
 export default function SignUp() {
+    const [state, formAction] = useFormState(signUp, initialState)
 
-    const [errors, setErrors] = useState({})
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const router = useRouter()
 
-    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        
-        const formData = new FormData(e.currentTarget)
-
-        const schema = z.object({
-            name: z.string().max(130, 'Nome muito grande'),
-            phonenumber: z.string().min(11, 'Número deve conter 11 digitos'),
-            email: z.string().email('E-mail não é válido'),
-            password: z.string().min(8)
-        })
-
-        type SignUp = z.infer<typeof schema>
-
-        const data: SignUp = {
-            name: formData.get('name') as string,
-            phonenumber: formData.get('phonenumber') as string,
-            email: formData.get('email') as string,
-            password: formData.get('password') as string
+    useEffect(() => {
+        const login = async () => {
+            await signIn('credentials', {
+                email,
+                password,
+                redirect: false
+            })
         }
 
-        const valitedFields = schema.safeParse(data)
+        if (state.success) {
+            login()
 
-        if (!valitedFields.success) {
-            setErrors(valitedFields.error.flatten().fieldErrors)
-
-            return
+            router.replace('/')
         }
-        
-        router.replace("/")
-    }
+    }, [state.success, router])
+
     return (
-        <form onSubmit={handleSubmit} className="text-red-600">
+        <form action={formAction} className="text-red-600">
             <label htmlFor="name">Nome Completo</label>
             <input type="text" name="name" id="name" />
             <label htmlFor="phonenumber">Telefone</label>
             <input type="text" name="phonenumber" id="phonenumber" required/>
             <label htmlFor="email">Em-mail</label>
-            <input type="email" name="email" id="email" />
+            <input type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)} />
             <label htmlFor="password">Senha</label>
-            <input type="password" name="password" id="password" />
+            <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} />
+
+            {Object.keys(state.errors).length > 0 && (
+                <div>
+                    {Object.entries(state.errors).map((error, index) => (
+                        <p key={index}>{error[0]} {error[1]}</p>
+                    ))}
+                </div>
+            )}
 
             <button type="submit">Criar</button>
         </form>
