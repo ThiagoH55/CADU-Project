@@ -1,6 +1,8 @@
 import AnimalCard from "./components/animal-card"
 import Header from "./components/header"
 import Filtro from "./components/filter"
+import FiltroFase from "./components/filter-2"
+import FiltroLocal from "./components/filter-3"
 
 const animals = [
   {
@@ -73,6 +75,8 @@ export default function Home() {
       <div className="pt-24 flex">
         <div className="w-4/12">
         <Filtro />
+        <FiltroFase />
+        <FiltroLocal />
         </div>
         <div className="w-8/12 flex flex-wrap gap-4">
           {animals.map((animal) => (
