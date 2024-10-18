@@ -1,9 +1,18 @@
 'use server'
 
 import { State } from "@/types"
+import { PrismaClient, usuarios } from "@prisma/client"
 import { z } from "zod"
 
 export async function signUp(prevState: State, formData: FormData) {
+    const prisma = new PrismaClient()
+
+    const users:usuarios[] = await prisma.$queryRaw` 
+    
+    select * from usuarios
+
+    `
+
     const state = {
         success: true,
         errors: {}
@@ -35,6 +44,13 @@ export async function signUp(prevState: State, formData: FormData) {
     }
 
     //salvando no banco de dados
-
+    await prisma.usuarios.create({
+        data:{
+            USR_EMAIL: data.email,
+            USR_NOME: data.name,
+            USR_TELEFONE: data.phonenumber,
+            USR_SENHA: data.password,
+        }
+    })
     return state
 }
