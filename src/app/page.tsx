@@ -6,7 +6,7 @@ import FiltroLocal from "./components/filter-3"
 
 const animals = [
   {
-    name: 'Rex',
+    name: 'Ambrósio',
     species: 'Cão',
     address: 'Rua das Flores, 123',
     photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwyXeKDN29AmZgZPLS7n0Bepe8QmVappBwZCeA3XWEbWNdiDFB'
