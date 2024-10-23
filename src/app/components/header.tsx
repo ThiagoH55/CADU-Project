@@ -9,6 +9,7 @@ export default function Header() {
             <div className="mr-5"><img className="w-8" src="/profile.png" alt="" /></div>
             <div className="mr-5"><img className="w-8" src="/menu.png" alt="" /></div>
             </div>
+        
         </header>
     )
 }
