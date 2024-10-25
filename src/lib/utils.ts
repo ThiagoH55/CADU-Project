@@ -24,6 +24,8 @@ export const nextAuthOptions: NextAuthOptions = {
             },
             async authorize(credentials, req) {
                 try {
+                    const argon2 = await import('argon2')
+
                     const prisma = new PrismaClient()
 
                     const user = await prisma.usuarios.findUnique({
@@ -32,7 +34,18 @@ export const nextAuthOptions: NextAuthOptions = {
                         }
                     })
 
-                    if (!user || user.USR_SENHA != credentials!.password) {
+                    if (!user) {
+                        return null
+                    }
+
+                    const salt = process.env.PASSWORD_SALT
+
+                    const passwordVerify = await argon2.verify(
+                        user.USR_SENHA,
+                        credentials!.password + salt
+                    )
+
+                    if (!passwordVerify) {
                         return null
                     }
 

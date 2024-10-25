@@ -7,6 +7,8 @@ import { z } from "zod"
 export async function signUp(prevState: State, formData: FormData) {
     const prisma = new PrismaClient()
 
+    const argon2 = await import('argon2')
+
     const users:usuarios[] = await prisma.$queryRaw` 
     
     select * from usuarios
@@ -42,6 +44,10 @@ export async function signUp(prevState: State, formData: FormData) {
 
         return state
     }
+
+    const salt = process.env.PASSWORD_SALT
+
+    data.password = await argon2.hash(data.password + salt)
 
     //salvando no banco de dados
     await prisma.usuarios.create({

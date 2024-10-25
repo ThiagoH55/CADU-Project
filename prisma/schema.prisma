@@ -60,7 +60,7 @@ model usuarios {
   USR_NOME     String      @db.VarChar(180)
   USR_EMAIL    String      @unique(map: "USR_EMAIL_UNIQUE") @db.VarChar(255)
   USR_TELEFONE String      @unique(map: "USR_TELEFONE_UNIQUE") @db.VarChar(11)
-  USR_SENHA    String      @db.VarChar(90)
+  USR_SENHA    String
   adocoes      adocoes[]
   animais      animais[]
   enderecos    enderecos[]
