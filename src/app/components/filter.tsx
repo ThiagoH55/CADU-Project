@@ -1,7 +1,7 @@
 export default function FiltroAnimais() {
   return (
     <div className="flex flex-col items-center mx-16 w-64 min-h-96 bg-white rounded-2xl drop-shadow-md m-4 text-gray-700">
-      <div className="text-center p-3">
+      <div className="text-center p-1">
         <h1 className="text-2xl font-[family-name:var(--font-be-vietnam)]">ANIMAIS</h1>
       </div>
       <div className="flex bg-gray-200 w-40 mx-5 rounded-3xl text-center justify-start drop-shadow-md p-1 m-2">
@@ -39,6 +39,12 @@ export default function FiltroAnimais() {
           <img src="/roedor.png" alt="" />
         </div>
         <p className="font-[family-name:var(--font-be-vietnam-regular)]">Roedores</p>
+      </div>
+      <div className="flex bg-gray-200 w-40 mx-5 rounded-3xl justify-startenter drop-shadow-md p-1 m-2">
+        <div className=" w-6 mx-1">
+          <img src="/peixe.png" alt="" />
+        </div>
+        <p className="font-[family-name:var(--font-be-vietnam-regular)]">Peixes</p>
       </div>
     </div>
   )
