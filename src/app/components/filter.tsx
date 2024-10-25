@@ -1,6 +1,6 @@
 export default function FiltroAnimais() {
   return (
-    <div className="flex flex-col items-center mx-16 w-64 min-h-96 bg-white rounded-2xl drop-shadow-md m-8 text-gray-700">
+    <div className="flex flex-col items-center mx-16 w-64 min-h-96 bg-white rounded-2xl drop-shadow-md m-4 text-gray-700">
       <div className="text-center p-3">
         <h1 className="text-2xl font-[family-name:var(--font-be-vietnam)]">ANIMAIS</h1>
       </div>
