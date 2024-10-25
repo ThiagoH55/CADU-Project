@@ -75,9 +75,9 @@ export default function SignUp() {
                         </div>
                     )}
 
-                    <div>
+                    <div className="flex justify-end mr-8">
 
-                        <button className="text-gray-900 mb-3 text-white bg-orange-500 font-[family-name:var(--font-be-vietnam-regular)]" type="submit" >&#10140; </button>
+                        <button className="text-3xl mb-3 size-10 rounded-full text-white bg-orange-500 " type="submit" >&#10140; </button>
 
                     </div>
 
