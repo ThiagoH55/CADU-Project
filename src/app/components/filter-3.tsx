@@ -19,7 +19,7 @@ export default function FiltroLocal() {
             <div> <p>Moreno</p></div>
             <div> <p>Olinda</p></div>
             <div> <p>Recife </p></div>
-            <div > <p>São Lourenço da Mata</p></div>
+            <div> <p>São Lourenço da Mata</p></div>
             </div>
         </div>
     )

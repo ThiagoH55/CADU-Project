@@ -88,7 +88,9 @@ export default function SignIn() {
         <div className="bg-orange-500 min-h-screen w-full flex">
             <div className="gap-6 w-1/3 flex flex-col items-center justify-center">
                 <div>
-                    <img src="LOGO-BRANCA.svg" alt="" />
+                    <Link href={'/'}>
+                        <img src="LOGO-BRANCA.svg" alt="" />
+                    </Link>
                 </div>
 
                 <div className="w-full flex justify-center">
