@@ -16,9 +16,10 @@ const initialState: State = {
 
 export default function SignUp() {
     const [state, formAction] = useFormState(signUp, initialState)
-
+    
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [secondStep, setSecondStep] = useState(false)
 
     const router = useRouter()
 
@@ -53,9 +54,25 @@ export default function SignUp() {
 
                         <div className="flex justify-center" > <h1 className=" flex justify-center text-2xl font-[family-name:var(--font-be-vietnam)] text-orange-500 mb-6 ">CADASTRO</h1> </div>
 
-                        <div className="flex-col flex justify-center w-9/12 ">
+                        <div className={`${!secondStep ? 'flex-col flex justify-center w-9/12' : 'hidden'}`}>
 
                             <label htmlFor="name">Nome Completo</label>
+                            <input className="bg-gray-300 mb-4 h-10 rounded-xl" type="text" name="name" id="name" />
+                            <label htmlFor="phonenumber">Telefone</label>
+                            <input className="bg-gray-300 mb-4 h-10 rounded-xl" type="text" name="phonenumber" id="phonenumber" required />
+                            <label htmlFor="email">E-mail</label>
+                            <input className="bg-gray-300 mb-4 h-10 rounded-xl" type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)} />
+                            <label htmlFor="password">Senha</label>
+                            <div className="flex gap-2">
+                                <input className="flex flex-1 bg-gray-300 mb-4 h-10 rounded-xl" type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} />
+                                <button className="w-10 h-10 text-3xl rounded-full text-white bg-orange-500 " type="button" onClick={() => setSecondStep(true)}>&#10140; </button>
+                            </div>
+
+                        </div>
+
+                        <div className={`${secondStep ? 'flex-col flex justify-center w-9/12' : 'hidden'}`}>
+
+                            <label htmlFor="name">dasadasd Completo</label>
                             <input className="bg-gray-300 mb-4 h-10 rounded-xl" type="text" name="name" id="name" />
                             <label htmlFor="phonenumber">Telefone</label>
                             <input className="bg-gray-300 mb-4 h-10 rounded-xl" type="text" name="phonenumber" id="phonenumber" required />
