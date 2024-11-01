@@ -1,19 +1,15 @@
 'use server'
 
 import { State } from "@/types"
-import { PrismaClient, usuarios } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
 
 export async function signUp(prevState: State, formData: FormData) {
+    console.log(formData)
+
     const prisma = new PrismaClient()
 
     const argon2 = await import('argon2')
-
-    const users:usuarios[] = await prisma.$queryRaw` 
-    
-    select * from usuarios
-
-    `
 
     const state = {
         success: true,
@@ -22,7 +18,7 @@ export async function signUp(prevState: State, formData: FormData) {
 
     const schema = z.object({
         name: z.string().max(130, 'Nome muito grande'),
-        phonenumber: z.string().min(11, 'Número deve conter 11 digitos'),
+        cellPhone: z.string().min(11, 'Número deve conter 11 digitos'),
         email: z.string().email('E-mail não é válido'),
         password: z.string().min(8)
     })
@@ -31,7 +27,7 @@ export async function signUp(prevState: State, formData: FormData) {
 
     const data: SignUp = {
         name: formData.get('name') as string,
-        phonenumber: formData.get('phonenumber') as string,
+        cellPhone: formData.get('phonenumber') as string,
         email: formData.get('email') as string,
         password: formData.get('password') as string
     }
@@ -50,12 +46,9 @@ export async function signUp(prevState: State, formData: FormData) {
     data.password = await argon2.hash(data.password + salt)
 
     //salvando no banco de dados
-    await prisma.usuarios.create({
-        data:{
-            USR_EMAIL: data.email,
-            USR_NOME: data.name,
-            USR_TELEFONE: data.phonenumber,
-            USR_SENHA: data.password,
+    await prisma.user.create({
+        data: {
+            ...data
         }
     })
     return state

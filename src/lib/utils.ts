@@ -1,6 +1,6 @@
 import { UserWithoutPassword } from '@/types'
 import { PrismaClient } from '@prisma/client'
-import { NextAuthOptions, User } from 'next-auth'
+import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 export const nextAuthOptions: NextAuthOptions = {
@@ -22,15 +22,16 @@ export const nextAuthOptions: NextAuthOptions = {
                     placeholder: '********',
                 },
             },
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             async authorize(credentials, req) {
                 try {
                     const argon2 = await import('argon2')
 
                     const prisma = new PrismaClient()
 
-                    const user = await prisma.usuarios.findUnique({
+                    const user = await prisma.user.findUnique({
                         where: {
-                            USR_EMAIL: credentials!.email
+                            email: credentials!.email
                         }
                     })
 
@@ -41,7 +42,7 @@ export const nextAuthOptions: NextAuthOptions = {
                     const salt = process.env.PASSWORD_SALT
 
                     const passwordVerify = await argon2.verify(
-                        user.USR_SENHA,
+                        user.password,
                         credentials!.password + salt
                     )
 
@@ -49,11 +50,8 @@ export const nextAuthOptions: NextAuthOptions = {
                         return null
                     }
 
-                    const loggedUser: any = user
-                    loggedUser.id = user.USR_ID
-                    delete loggedUser.USR_ID
-
-                    const { USR_SENHA, ...rest } = loggedUser
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                    const { password, ...rest } = user
 
                     return rest
                 } catch (error) {

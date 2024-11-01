@@ -7,61 +7,86 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model adocoes {
-  ADO_ID     Int      @default(autoincrement())
-  ADO_DATA   DateTime @db.Date
-  ADO_ANI_ID Int
-  ADO_USR_ID Int
-  usuarios   usuarios @relation(fields: [ADO_USR_ID], references: [USR_ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_ADOCOES_USUARIOS1")
-  animais    animais  @relation(fields: [ADO_ANI_ID], references: [ANI_ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_DOACOES_ANIMAIS")
+model User {
+  id        String @id @default(uuid())
+  name      String @db.VarChar(180)
+  email     String @unique @db.VarChar(255)
+  cellPhone String @unique @map("cell_phone")
+  password  String
 
-  @@id([ADO_ID, ADO_ANI_ID, ADO_USR_ID])
-  @@index([ADO_USR_ID], map: "fk_ADOCOES_USUARIOS1_idx")
-  @@index([ADO_ANI_ID], map: "fk_DOACOES_ANIMAIS_idx")
+  addresses Address[]
+
+  animals Animal[]
+
+  donations Donation[]
+
+  @@map("users")
 }
 
-model animais {
-  ANI_ID        Int       @unique @default(autoincrement())
-  ANI_NOME      String    @db.VarChar(180)
-  ANI_DESCRICAO String    @db.VarChar(400)
-  ANI_ESPECIE   String    @db.VarChar(80)
-  ANI_GENERO    Int       @db.TinyInt
-  ANI_USR_ID    Int
-  ANI_RAC_ID    Int
-  adocoes       adocoes[]
-  racas         racas     @relation(fields: [ANI_RAC_ID], references: [RAC_ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_ANIMAIS_RACAS1")
-  usuarios      usuarios  @relation(fields: [ANI_USR_ID], references: [USR_ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_ANIMAIS_USUARIOS1")
+model Address {
+  id     String @id @default(uuid())
+  street String @db.VarChar(90)
+  city   String @db.VarChar(120)
+  state  String @db.VarChar(2)
 
-  @@id([ANI_ID, ANI_USR_ID, ANI_RAC_ID])
-  @@index([ANI_RAC_ID], map: "fk_ANIMAIS_RACAS1_idx")
-  @@index([ANI_USR_ID], map: "fk_ANIMAIS_USUARIOS1_idx")
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  @@map("addresses")
 }
 
-model enderecos {
-  END_ID         Int      @default(autoincrement())
-  END_LOGRADOURO String   @db.VarChar(90)
-  END_CIDADE     String   @db.VarChar(120)
-  END_ESTADO     String   @db.VarChar(2)
-  END_USR_ID     Int
-  usuarios       usuarios @relation(fields: [END_USR_ID], references: [USR_ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_ENDERECOS_USUARIOS1")
+model Animal {
+  id          String @id @default(uuid())
+  name        String @db.VarChar(180)
+  description String @db.VarChar(400)
+  gender      Gender
 
-  @@id([END_ID, END_USR_ID])
-  @@index([END_USR_ID], map: "fk_ENDERECOS_USUARIOS1_idx")
+  Donation Donation?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  breed   Breed  @relation(fields: [breedId], references: [id])
+  breedId String @map("breed_id")
+
+  @@map("animals")
 }
 
-model racas {
-  RAC_ID   Int       @id @default(autoincrement())
-  RAC_NOME String    @db.VarChar(200)
-  animais  animais[]
+model TypeOfAnimal {
+  id   String @id @default(uuid())
+  name String @db.VarChar(180)
+
+  breeds Breed[]
+
+  @@map("type_of_animals")
 }
 
-model usuarios {
-  USR_ID       Int         @id @default(autoincrement())
-  USR_NOME     String      @db.VarChar(180)
-  USR_EMAIL    String      @unique(map: "USR_EMAIL_UNIQUE") @db.VarChar(255)
-  USR_TELEFONE String      @unique(map: "USR_TELEFONE_UNIQUE") @db.VarChar(11)
-  USR_SENHA    String
-  adocoes      adocoes[]
-  animais      animais[]
-  enderecos    enderecos[]
+model Breed {
+  id   String @id @default(uuid())
+  name String @db.VarChar(180)
+
+  animals Animal[]
+
+  typeOfAnimal   TypeOfAnimal @relation(fields: [typeOfAnimalId], references: [id])
+  typeOfAnimalId String       @map("animal_type_id")
+
+  @@map("breeds")
+}
+
+model Donation {
+  id     String  @id @default(uuid())
+  status Boolean @default(false)
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  animal   Animal @relation(fields: [animalId], references: [id])
+  animalId String @unique
+
+  @@map("donations")
+}
+
+enum Gender {
+  MACHO
+  FEMEA
 }

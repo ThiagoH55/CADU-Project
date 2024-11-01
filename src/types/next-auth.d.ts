@@ -1,4 +1,4 @@
-import { AuthUser, UserWithoutPassword } from '.'
+import { UserWithoutPassword } from '.'
 
 declare module 'next-auth' {
     interface Session {
