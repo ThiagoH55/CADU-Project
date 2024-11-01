@@ -67,7 +67,7 @@ const animals = [
   },
   {
     name: 'Fagner',
-    species: 'Hamsster',
+    species: 'Hamster',
     address: 'Ponto Cidadão, laboratório',
     photo: 'https://i.pinimg.com/564x/2a/34/02/2a3402dab57b27be93fdba8acdc1321e.jpg'
   },
