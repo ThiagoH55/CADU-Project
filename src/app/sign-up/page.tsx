@@ -73,7 +73,7 @@ export default function SignUp() {
 
                         <div className={`${secondStep ? 'flex-col flex justify-center w-9/12' : 'hidden'}`}>
 
-                            <label htmlFor="name">dasadasd Completo</label>
+                            <label htmlFor="name">Nome Completo</label>
                             <input className="bg-gray-300 mb-4 h-10 p-2 rounded-xl" type="text" name="name" id="name" />
                             <label htmlFor="phonenumber">Telefone</label>
                             <input className="bg-gray-300 mb-4 h-10 p-2 rounded-xl" type="text" name="phonenumber" id="phonenumber" required />

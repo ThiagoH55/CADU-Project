@@ -117,7 +117,7 @@ export default function SignIn() {
                         )}
                             <div className="text-center mt-7 text-orange-500 text-sm">
                                 <p>Ainda não possui uma conta?</p>
-                                <Link className="text-sm mt-2 ml-1 text-blue-500 text-sm" href={"/sign-up"}>Cadastra-se</Link>
+                                <Link className=" mt-2 ml-1 text-blue-500 text-sm" href={"/sign-up"}>Cadastra-se</Link>
                             </div>
                         </div>
 
