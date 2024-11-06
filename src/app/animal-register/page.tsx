@@ -1,10 +1,22 @@
 'use client'
-import { useRouter } from "next/navigation"
 import InsertInfosInput from "../components/insert-infos"
-import RoundedNextButton from "../components/bottons"
+import { useState, ChangeEvent } from "react";
 
 
 export default function AnimalRegister() {
+    
+
+    const [image, setImage] = useState('img-input.svg');
+
+    // Função para lidar com a mudança de imagem
+    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0]; // Pega o primeiro arquivo selecionado
+  
+      if (file) {
+        const imageUrl = URL.createObjectURL(file); // Cria uma URL temporária para o arquivo
+        setImage(imageUrl); // Atualiza o estado com a URL da imagem
+      }
+    };
     return (
 
         <div className="bg-gray-300 min-h-screen">
@@ -31,10 +43,10 @@ export default function AnimalRegister() {
                     <div className="w-full flex p-5">
                         <div className=" ml-6 h-full rounded-md font-[family-name:var(--font-be-vietnam)]">
                             <label htmlFor="animalPicture" className="cursor-pointer">
-                                <img className=" items-center rounded-md " src="img-input.svg" alt="" />
+                                <img className=" items-center rounded-md w-56" src={image} alt="" />
                             </label>
 
-                            <input type="file" className="hidden" id="animalPicture" accept="image/*" />
+                            <input type="file" className="hidden" id="animalPicture" accept="image/*" onChange={handleImageChange } />
                             <p className="flex text-gray-500 text-center justify-center m-3 ">Enviar fotos do <br />animalzinho</p>
                         </div>
 
