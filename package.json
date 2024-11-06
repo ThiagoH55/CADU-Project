@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prisma": {
+    "seed": "tsx prisma/seeders"
+  },
   "dependencies": {
     "@prisma/client": "^5.21.1",
     "argon2": "^0.41.1",
@@ -15,6 +18,7 @@
     "next-auth": "^4.24.8",
     "react": "^18",
     "react-dom": "^18",
+    "tsx": "^4.19.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {
