@@ -7,16 +7,16 @@ export default function FiltroFase() {
                     <img src="/fase.png" alt=""/>
                 </div>
             </div>
-                <div className="flex bg-gray-200 w-36 mx-5 rounded-3xl justify-center drop-shadow-md p-2 m-2">
+                <div className="flex bg-gray-200 hover:bg-orange-400 active:bg-orange-500 hover:scale-105 cursor-pointer w-36 mx-5 rounded-3xl justify-center drop-shadow-md p-2 m-2">
                 <p className="font-[family-name:var(--font-be-vietnam-regular)]">Filhote</p>
                 </div>
-                <div className="flex bg-gray-200 w-36 mx-5 rounded-3xl justify-center drop-shadow-md p-2 m-2">
+                <div className="flex bg-gray-200 hover:bg-orange-400 active:bg-orange-500 hover:scale-105 cursor-pointer w-36 mx-5 rounded-3xl justify-center drop-shadow-md p-2 m-2">
                 <p className="font-[family-name:var(--font-be-vietnam-regular)]">Jovem</p>
                 </div>
-                <div className="flex bg-gray-200 w-36 mx-5 rounded-3xl justify-center drop-shadow-md p-2 m-2">
+                <div className="flex bg-gray-200 hover:bg-orange-400 active:bg-orange-500 hover:scale-105 cursor-pointer w-36 mx-5 rounded-3xl justify-center drop-shadow-md p-2 m-2">
                 <p className="font-[family-name:var(--font-be-vietnam-regular)]">Adulto</p>
                 </div>
-                <div className="flex bg-gray-200 w-36 mx-5 rounded-3xl justify-center drop-shadow-md p-2 m-2">
+                <div className="flex bg-gray-200 hover:bg-orange-400 active:bg-orange-500 hover:scale-105 cursor-pointer w-36 mx-5 rounded-3xl justify-center drop-shadow-md p-2 m-2">
                 <p className="font-[family-name:var(--font-be-vietnam-regular)]">Idoso</p>
                 </div>
         </div>
