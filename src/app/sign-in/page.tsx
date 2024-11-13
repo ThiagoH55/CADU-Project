@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { useState, FormEvent, useEffect } from "react"
 import { z } from "zod"
 import { signIn as nextAuthSignIn } from 'next-auth/react'
-import RoundedNextButton from "../components/bottons"
+import RoundedNextButton from "../../components/bottons"
 import Link from "next/link"
 
 const carouselImages = [

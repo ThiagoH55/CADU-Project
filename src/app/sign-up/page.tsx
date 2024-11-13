@@ -6,7 +6,7 @@ import { useFormState } from "react-dom"
 import { signUp } from "./actions"
 import { State } from "@/types"
 import { signIn } from "next-auth/react"
-import RoundedNextButton from "../components/bottons"
+import RoundedNextButton from "../../components/bottons"
 import Link from "next/link"
 
 const initialState: State = {

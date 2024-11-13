@@ -1,8 +1,8 @@
-import AnimalCard from "./components/animal-card"
-import Header from "./components/header"
-import Filtro from "./components/filter"
-import FiltroFase from "./components/filter-2"
-import FiltroLocal from "./components/filter-3"
+import AnimalCard from "../components/animal-card"
+import Header from "../components/header"
+import Filtro from "../components/filter"
+import FiltroFase from "../components/filter-2"
+import FiltroLocal from "../components/filter-3"
 
 const animals = [
   {
@@ -91,7 +91,6 @@ export default function Home() {
         <FiltroLocal />
         </div>
         <div className="w-8/12 flex flex-wrap">
-        <div></div>
           {animals.map((animal) => (
             <AnimalCard animal={animal} />
           ))}
