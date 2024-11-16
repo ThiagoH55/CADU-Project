@@ -28,3 +28,14 @@ export async function getBreeds(typeOfAnimalId: string) {
 
     return breeds
 }
+
+export async function getAnimals() {
+    const animals = await prisma.animal.findMany({
+        include: {
+            breed: true
+        }
+    })
+    console.log('funcionando' + animals)
+
+    return animals
+}
