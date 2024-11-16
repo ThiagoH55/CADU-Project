@@ -48,12 +48,6 @@ export default function SignUp() {
       </Link>
 
       <div className="w-7/12 h-7/12 mb-7 py-3 bg-white flex-start items-center justify-center drop-shadow-3xl rounded-3xl ">
-        {/* <form action={formAction}>
-            <input type="text" name="name" id="" />
-
-            <button type="submit">Enviar</button>
-        </form> */}
-
         <form
           action={formAction}
           className="font-[family-name:var(--font-be-vietnam)]"
@@ -134,7 +128,7 @@ export default function SignUp() {
                   <label htmlFor="gender">Gênero</label>
                   <select
                     className="bg-gray-300 mb-4 h-10 p-2 rounded-xl"
-                    name="generos"
+                    name="gender"
                     id="gender"
                   >
                     <option value={0}>Masculino</option>
@@ -148,16 +142,16 @@ export default function SignUp() {
                   <label htmlFor="adress">CEP</label>
                   <input
                     className="bg-gray-300 mb-4 h-10 p-2 mr-14 rounded-xl "
-                    type="cep"
+                    type="text"
                     name="cep"
                     id="cep"
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="">Cidade</label>
+                  <label htmlFor="cidade">Cidade</label>
                   <select
                     className="bg-gray-300 mb-4 h-10 p-2 rounded-xl"
-                    name="City"
+                    name="cidade"
                     id="Cidade"
                   >
                     <option value={0}>Selecione a cidade :p</option>
@@ -193,26 +187,16 @@ export default function SignUp() {
               </p>
             </div>
 
-            <div className="flex w-full justify-between items-center relative py-7 px-2 mt-6">
-              <div className="flex justify-between w-full">
-                <div className="flex gap-2 rotate-180 w-fit">
-                  <RoundedNextButton />
-                </div>
+            <div className="flex w-9/12 justify-between items-center relative py-7 px-2 mt-6">
+              <div className="flex gap-2 rotate-180 w-fit">
+                  <RoundedNextButton onClick={()=> setSecondStep(false)} />
               </div>
-              <div>
                 <button
                   className="px-5 py-3 rounded-full text-sm text-white bg-orange-500 "
                   type="submit"
                 >
                   FINALIZAR
                 </button>
-              </div>
-
-              {/* <div className="absolute w-full flex justify-center">
-                <div className="size-28">
-                  <img src="./LogoCadu.svg" alt="" />
-                </div>
-              </div> */}
             </div>
 
             {Object.keys(state.errors).length > 0 && (

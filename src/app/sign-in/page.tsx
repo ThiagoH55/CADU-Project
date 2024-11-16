@@ -105,7 +105,7 @@ export default function SignIn() {
                             <label htmlFor="password">Senha</label>
                             <div className="flex gap-2 w-full">
                                 <input className="bg-gray-300 font-medium rounded-xl p-2 flex flex-1" type="password" name="password" id="password" />
-                                <RoundedNextButton />
+                                <RoundedNextButton type="submit" />
                             </div>
                             <Link className="text-sm mt-2 ml-1 text-blue-500" href={""}>Esqueceu a senha?</Link>
                         {Object.keys(errors).length > 0 && (

@@ -5,6 +5,7 @@ import InsertInfosInput from "../../components/insert-infos";
 import { useState, ChangeEvent, useEffect } from "react";
 import { signUp } from "./action";
 import { State } from "@/types";
+import Link from "next/link";
 
 const initialState: State = {
   success: false,
@@ -65,7 +66,10 @@ export default function AnimalRegister() {
 
         <div className="flex flex-rol items-center ">
           <div className="mr-6">
+            <Link  href={'/'}>
             <img className="w-14" src="/logoSemDesc.png" alt="" />
+            </Link>
+           
           </div>
         </div>
       </header>
