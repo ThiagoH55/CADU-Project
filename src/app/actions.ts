@@ -39,3 +39,20 @@ export async function getAnimals() {
 
     return animals
 }
+
+export async function getAnimalById(id: string) {
+    const animal = await prisma.animal.findUnique({
+        where: {
+            id
+        },
+        include: {
+            user: {
+                select: {
+                    cellPhone: true
+                }
+            }
+        }
+    })
+
+    return animal
+}

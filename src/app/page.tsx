@@ -7,6 +7,7 @@ import FiltroLocal from "../components/filter-3"
 import { getAnimals } from "./actions"
 import { useEffect, useState } from "react"
 import { Animal, Breed } from "@prisma/client"
+import Link from "next/link"
 
 // const animals = [
 //   {
@@ -109,7 +110,9 @@ export default function Home() {
         </div>
         <div className="w-8/12 flex flex-wrap">
           {animals.map((animal, index) => (
-            <AnimalCard {...animal} key={index} />
+            <Link href={`/animal/${animal.id}`} key={index}>
+              <AnimalCard {...animal} />
+            </Link>
           ))}
         </div>
       </div>
