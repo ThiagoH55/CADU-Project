@@ -12,6 +12,20 @@ const initialState: State = {
   errors: {},
 };
 
+const creatBase64 = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const file = event.target.files?.[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    
+    reader.onloadend = () => {
+      let base64: string = reader.result as string
+      console.log(base64)
+    };
+  }
+};
+
 export default function AnimalRegister() {
   const [state, formAction] = useFormState(signUp, initialState);
   const [image, setImage] = useState("img-input.svg");
@@ -91,7 +105,7 @@ export default function AnimalRegister() {
                 className="hidden"
                 id="animalPicture"
                 accept="image/*"
-                onChange={handleImageChange}
+                onChange={creatBase64}
               />
               <p className="flex text-gray-500 text-center justify-center m-3 ">
                 Enviar fotos do <br />
