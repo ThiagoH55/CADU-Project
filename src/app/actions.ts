@@ -48,7 +48,13 @@ export async function getAnimalById(id: string) {
         include: {
             user: {
                 select: {
-                    cellPhone: true
+                    cellPhone: true,
+                    name: true
+                }
+            },
+            breed: {
+                select: {
+                    name: true
                 }
             }
         }

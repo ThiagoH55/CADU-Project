@@ -1,63 +1,129 @@
-'use server'
+"use client";
 
-import { getAnimalById } from "@/app/actions"
-import AnimalData from "@/components/animal-data"
-import Header from "@/components/header"
-import { headers } from "next/headers"
+import { getAnimalById } from "@/app/actions";
+import AnimalData from "@/components/animal-data";
+import Header from "@/components/header";
+import { Gender } from "@prisma/client";
+import { FormEvent, useEffect, useState } from "react";
 
-export default async function Page({
-    params,
-}: {
-    params: Promise<{ slug: string }>
-}) {
-    const slug = (await params).slug
+export default function AnimalPage({ params }: { params: { slug: string } }) {
+  const bodyTemplate =
+    "dasjdhaksjdhka j hkjhaksjdhkajshdkjashd jhkajhdskajshdkjwsah";
 
-    const animal = await getAnimalById(slug)
+  const [animal, setAnimal] = useState<
+    | ({
+        user: {
+          name: string;
+          cellPhone: string;
+        };
+        breed: {
+          name: string;
+        };
+      } & {
+        name: string;
+        description: string;
+        id: string;
+        gender: Gender;
+        userId: string;
+        breedId: string;
+      })
+    | null
+  >(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
-    return (
+  useEffect(() => {
+    const getAnimalData = async () => {
+      const animalData = await getAnimalById(params.slug);
 
-        <div className="font-[family-name:var(--font-be-vietnam)]">
-            <Header />
+      setAnimal(animalData);
+    };
 
-            <div className="bg-gray-300 h-screen flex justify-center items-center">
-                <div className="w-10/12 h-4/6 bg-white drop-shadow-3xl rounded-3xl">
+    getAnimalData();
+  }, [params.slug]);
 
-                    <div className="flex h-1/2 mx-7 my-7">
-                        <div className="w-72">
-                            <img className="rounded-md" src="https://i.pinimg.com/564x/43/b8/f7/43b8f757efbe31ed48e6875165f3ee5d.jpg" alt="" />
-                        </div>
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-                        <div className="mx-7">
-                            <h1 className="text-black text-6xl">
+    const form = new FormData(e.currentTarget);
 
-                                {JSON.stringify(animal)}
+    const name = form.get("name");
+    const description = form.get("description");
 
-                            </h1>
+    const phoneNumber = animal?.user.cellPhone;
 
-                            <div className="my-5 ">
+    const message = [name, description].join(" ");
 
-                                <AnimalData/> <AnimalData/>
-                            </div>
+    const encodedMessage = encodeURIComponent(message);
 
+    const url = `https://wa.me/${phoneNumber
+      ?.replace(/^(.{3})./, "$1")
+      ?.slice(1)}?text=${encodedMessage}`;
 
-                            <div className="mt-36">
-                                <h1 className="text-black text-3xl ">Doador:
-                                    <span className="text-orange-500">Thiago Henrique </span> </h1>
-                            </div>
+    window.open(url, "_blank");
+  }
 
-                        </div>
+  return (
+    <div className="font-[family-name:var(--font-be-vietnam)] h-screen">
+      <Header />
 
-
-                    </div>
-
-                    <div className="flex mx-7 justify-center">
-                        <textarea
-                            className="bg-gray-300 w-full h-56 resize-none rounded-md"
-                            name="descricao" />
-                    </div>
-
-                </div>
+      <div className="bg-gray-300 flex justify-center items-center pt-20 h-full">
+        <div className="w-10/12 h-4/6 bg-white drop-shadow-3xl rounded-3xl">
+          <div className="flex h-1/2 mx-7 my-7">
+            <div className="w-72">
+              <img
+                className="rounded-md"
+                src="https://i.pinimg.com/564x/43/b8/f7/43b8f757efbe31ed48e6875165f3ee5d.jpg"
+                alt=""
+              />
             </div>
+
+            <div className="mx-7">
+              <h1 className="text-black text-6xl">{animal?.name}</h1>
+
+              <div className="my-5 flex">
+                <AnimalData>{animal?.gender === 'FEMEA' ? 'Fêmea' : 'Macho'}</AnimalData>
+                <AnimalData>{animal?.breed.name}</AnimalData>
+              </div>
+
+              <div className="mt-36">
+                <h1 className="text-black text-3xl ">
+                  Doador:
+                  <span className="text-orange-500">
+                    {" "}
+                    {animal?.user.name}
+                  </span>{" "}
+                </h1>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex mx-7 justify-center">
+            <div className="bg-gray-300 w-full min-h-48 rounded-md p-2">
+              <h2>Descrição:</h2>
+              {animal?.description.length === 0 ? (
+                <p>O animal não possui uma descrição.</p>
+              ) : (
+                animal?.description
+              )}
+            </div>
+          </div>
         </div>
-    )
+
+        <button onClick={() => setModalOpen((prev) => !prev)}>
+          Solicitar adoção
+        </button>
+
+        <dialog open={modalOpen} className="bg-red-800">
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="">Bom dia</label>
+            <input type="text" name="name" />
+            <label htmlFor="">Boa noite</label>
+            {/* <input type="text" name="description" /> */}
+            <textarea name="description">{bodyTemplate}</textarea>
+            <button type="submit">Enviar</button>
+          </form>
+        </dialog>
+      </div>
+    </div>
+  );
 }
