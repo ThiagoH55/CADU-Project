@@ -3,7 +3,7 @@ import { useFormState } from "react-dom";
 import { getBreeds, getTypesOfAnimals } from "../actions";
 import InsertInfosInput from "../../components/insert-infos";
 import { useState, useEffect, FormEvent } from "react";
-import { registerAnimal } from "./actions";
+import { registerAnimal } from "./action";
 import { State } from "@/types";
 import Link from "next/link";
 
@@ -96,7 +96,7 @@ export default function AnimalRegister() {
       <div className="h-screen w-screen bg-gray-300 flex justify-center items-center">
         <div className="bg-white w-6/10 h-4/6 mt-10 drop-shadow-4xl rounded-3xl">
         
-          <div className="flex p-6">
+          <div className="flex p-6 justify-center">
 
             <div className="rounded-md font-[family-name:var(--font-be-vietnam)]">
               <label htmlFor="animalPicture" className="cursor-pointer">
@@ -152,9 +152,7 @@ export default function AnimalRegister() {
                 CADASTRO DE ANIMAL
               </h1>
 
-              {JSON.stringify(state.errors)}
-
-              <div className="flex flex-row gap-24">
+              <div className="flex flex-row gap-24 mt-8">
 
 
                 <div className="first: first:ml-16">
@@ -186,7 +184,7 @@ export default function AnimalRegister() {
                     Descrição
                   </label>
                   <textarea
-                    className="bg-gray-300 px-2 min-w-60 min-h-20 resize-none rounded-md"
+                    className="bg-gray-300 px-2 min-w-60 min-h-64 resize-none rounded-md"
                     name="descricao"
                   />
                   <button
