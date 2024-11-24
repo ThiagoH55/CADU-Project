@@ -2,8 +2,8 @@
 import { useFormState } from "react-dom";
 import { getBreeds, getTypesOfAnimals } from "../actions";
 import InsertInfosInput from "../../components/insert-infos";
-import { useState, ChangeEvent, useEffect } from "react";
-import { signUp } from "./action";
+import { useState, useEffect, FormEvent } from "react";
+import { registerAnimal } from "./actions";
 import { State } from "@/types";
 import Link from "next/link";
 
@@ -12,23 +12,9 @@ const initialState: State = {
   errors: {},
 };
 
-const creatBase64 = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const file = event.target.files?.[0];
-
-  if (file) {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    
-    reader.onloadend = () => {
-      let base64: string = reader.result as string
-      console.log(base64)
-    };
-  }
-};
-
 export default function AnimalRegister() {
-  const [state, formAction] = useFormState(signUp, initialState);
-  const [image, setImage] = useState("img-input.svg");
+  const [state, formAction] = useFormState(registerAnimal, initialState);
+  const [base64, setBase64] = useState("");
   const [typesOfAnimals, setTypesOfAnimals] = useState<
     {
       id: string;
@@ -60,15 +46,34 @@ export default function AnimalRegister() {
     breeds();
   }, [selectTypeOfAnimal]);
 
-  // Função para lidar com a mudança de imagem
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]; // Pega o primeiro arquivo selecionado
-
+  const createBase64 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+  
     if (file) {
-      const imageUrl = URL.createObjectURL(file); // Cria uma URL temporária para o arquivo
-      setImage(imageUrl); // Atualiza o estado com a URL da imagem
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file);
+      
+      reader.onloadend = () => {
+        let base64: string = reader.result as string
+
+        console.log(base64)
+
+        setBase64(base64);
+      };
     }
   };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const form = new FormData(e.currentTarget)
+
+    form.append("imageBase64", base64)
+
+    formAction(form)
+  }
+
   return (
     <div className="bg-gray-300 min-h-screen">
       <header className="z-50 h-16 w-full bg-gradient-to-r from bg-orange-500 to orange-700 items-center flex flex-initial text-3xl fixed shadow-lg justify-between">
@@ -95,7 +100,7 @@ export default function AnimalRegister() {
               <label htmlFor="animalPicture" className="cursor-pointer">
                 <img
                   className=" items-center rounded-md w-56"
-                  src={image}
+                  src={"img-input.svg"}
                   alt=""
                 />
               </label>
@@ -105,7 +110,7 @@ export default function AnimalRegister() {
                 className="hidden"
                 id="animalPicture"
                 accept="image/*"
-                onChange={creatBase64}
+                onChange={createBase64}
               />
               <p className="flex text-gray-500 text-center justify-center m-3 ">
                 Enviar fotos do <br />
@@ -115,7 +120,7 @@ export default function AnimalRegister() {
 
             <form
               className="w-4/6 font-[family-name:var(--font-be-vietnam)]"
-              action={formAction}
+              onSubmit={handleSubmit}
             >
               <h1 className="text-orange-500 text-center ml-16 text-5xl ">
                 CADASTRO DE ANIMAL

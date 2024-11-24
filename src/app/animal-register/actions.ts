@@ -6,7 +6,7 @@ import { Gender, PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 
-export async function signUp(prevState: State, formData: FormData) {
+export async function registerAnimal(prevState: State, formData: FormData) {
   console.log(formData);
 
   const session = await getServerSession(nextAuthOptions);
@@ -32,9 +32,9 @@ export async function signUp(prevState: State, formData: FormData) {
     breedId: z.string().uuid(),
   });
 
-  type SignUp = z.infer<typeof schema>;
+  type Animal = z.infer<typeof schema>;
 
-  const data: SignUp = {
+  const data: Animal = {
     // tipoAnimal: formData.get('tipoAnimal') as string,
     // especie: formData.get('especie') as string,
     gender: formData.get("sexo") as Gender,
