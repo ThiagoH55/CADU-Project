@@ -6,7 +6,7 @@ import FiltroFase from "../components/filter-2"
 import FiltroLocal from "../components/filter-3"
 import { getAnimals } from "./actions"
 import { useEffect, useState } from "react"
-import { Animal, Breed } from "@prisma/client"
+import { Gender } from "@prisma/client"
 import Link from "next/link"
 
 // const animals = [
@@ -86,17 +86,62 @@ import Link from "next/link"
 
 export default function Home() {
 
-  const [animals, setAnimals] = useState<(Animal & { breed: Breed })[]>([])
+  const [animals, setAnimals] = useState<({
+    breed: {
+        typeOfAnimal: {
+            id: string;
+            name: string;
+        };
+    } & {
+        id: string;
+        name: string;
+        typeOfAnimalId: string;
+    };
+  } & {
+      id: string;
+      name: string;
+      description: string;
+      gender: Gender;
+      userId: string;
+      breedId: string;
+  })[]>([])
+
+  const [filteredAnimals, setFilteredAnimals] = useState<({
+    breed: {
+        typeOfAnimal: {
+            id: string;
+            name: string;
+        };
+    } & {
+        id: string;
+        name: string;
+        typeOfAnimalId: string;
+    };
+  } & {
+      id: string;
+      name: string;
+      description: string;
+      gender: Gender;
+      userId: string;
+      breedId: string;
+  })[]>([])
 
   useEffect(() => {
     const animals = async () => {
       const types = await getAnimals()
 
       setAnimals(types)
+      setFilteredAnimals(types)
     }
 
     animals()
   }, [])
+
+  const filterAnimals = (animalName: string) => {
+    const filteredAnimals = animals.filter((animal) => animal.breed.typeOfAnimal.name === animalName)
+
+    setFilteredAnimals(filteredAnimals)
+  }
 
   return (
     <div className="bg-gray-300 min-h-screen">
@@ -104,12 +149,12 @@ export default function Home() {
 
       <div className="pt-24 flex">
         <div className="w-4/12">
-        <Filtro />
-        <FiltroFase />
+        <Filtro handleChange={filterAnimals} />
+        {/* <FiltroFase /> */}
         <FiltroLocal />
         </div>
         <div className="w-8/12 flex flex-wrap">
-          {animals.map((animal, index) => (
+          {filteredAnimals.map((animal, index) => (
             <Link href={`/animal/${animal.id}`} key={index}>
               <AnimalCard {...animal} />
             </Link>

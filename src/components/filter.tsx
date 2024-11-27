@@ -14,7 +14,11 @@ const imgs = [
   '/Peixes.svg'
 ]
 
-export default function FiltroAnimais() {
+interface FiltroAnimaisProps {
+  handleChange: (animalName: string) => void
+}
+
+export default function FiltroAnimais(props: FiltroAnimaisProps) {
   const [typesAnimals, setTypesAnimals] = useState<(TypeOfAnimal & { img: string })[]>([])
 
   useEffect(() => {
@@ -40,7 +44,11 @@ export default function FiltroAnimais() {
         </div>
       </div>
       {typesAnimals.map((typesAnimal, index) => (
-        <div key={index} className="flex bg-gray-200 hover:bg-orange-400 active:bg-orange-500 hover:scale-105 cursor-pointer w-40 mx-5 rounded-3xl justify-startenter drop-shadow-md p-1 m-2">
+        <div
+          key={index}
+          className="flex bg-gray-200 hover:bg-orange-400 active:bg-orange-500 hover:scale-105 cursor-pointer w-40 mx-5 rounded-3xl justify-startenter drop-shadow-md p-1 m-2"
+          onClick={() => props.handleChange(typesAnimal.name)}
+        >
           <div className="w-4 mx-1 flex justify-center items-center">
             <img src={typesAnimal.img} alt="" />
           </div>

@@ -32,7 +32,11 @@ export async function getBreeds(typeOfAnimalId: string) {
 export async function getAnimals() {
     const animals = await prisma.animal.findMany({
         include: {
-            breed: true
+            breed: {
+                include: {
+                    typeOfAnimal: true
+                }
+            }
         }
     })
     console.log('funcionando' + animals)

@@ -20,26 +20,15 @@ model User {
   email     String @unique @db.VarChar(255)
   cellPhone String @unique @map("cell_phone")
   password  String
-
-  addresses Address[]
+  street    String @db.VarChar(90)
+  city      String @db.VarChar(120)
+  state     String @db.VarChar(2)
 
   animals Animal[]
 
   donations Donation[]
 
   @@map("users")
-}
-
-model Address {
-  id     String @id @default(uuid())
-  street String @db.VarChar(90)
-  city   String @db.VarChar(120)
-  state  String @db.VarChar(2)
-
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @map("user_id")
-
-  @@map("addresses")
 }
 
 model Animal {
