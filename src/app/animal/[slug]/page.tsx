@@ -3,12 +3,13 @@
 import { getAnimalById } from "@/app/actions";
 import AnimalData from "@/components/animal-data";
 import Header from "@/components/header";
+import Header1 from "@/components/header-comp";
 import { Gender } from "@prisma/client";
 import { FormEvent, useEffect, useState } from "react";
 
 export default function AnimalPage({ params }: { params: { slug: string } }) {
   const bodyTemplate =
-    "dasjdhaksjdhka j hkjhaksjdhkajshdkjashd jhkajhdskajshdkjwsah";
+    "Olá, vi seu bichinho no CADU e...";
 
   const [animal, setAnimal] = useState<
     | ({
@@ -64,7 +65,7 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
 
   return (
     <div className="font-[family-name:var(--font-be-vietnam)] h-screen">
-      <Header />
+      <Header1 />
 
       <div className="bg-gray-300 flex flex-col justify-center items-center pt-20 h-full">
         <div className="w-10/12 h-4/6 bg-white drop-shadow-3xl rounded-3xl">
@@ -101,7 +102,7 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
             <div className="bg-gray-300 w-full min-h-44 rounded-md p-2">
               <h2 className="text-gray-600 text-lg">Descrição:</h2>
               {animal?.description.length === 0 ? (
-                <p className="">O animal não possui uma descrição.</p>
+                <p className="">O animal não possui uma descrição :/ </p>
               ) : (
                 animal?.description
               )}
@@ -110,19 +111,20 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
         </div>
 
         <div className=" text-black flex flex-wrap">
-          <button  onClick={() => setModalOpen((prev) => !prev)}>
+          <button className=" p-3 py-2 my-10  text-1xl rounded-full text-white bg-orange-500" onClick={() => setModalOpen((prev) => !prev)}>
             Solicitar adoção
           </button>
         </div>
 
-        <dialog open={modalOpen} className="bg-red-800">
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="">Bom dia</label>
-            <input type="text" name="name" />
-            <label htmlFor="">Boa noite</label>
+        <dialog open={modalOpen} className="fixed bg-black bg-opacity-50 inset-0 z-50 backdrop-blur-sm flex justify-center items-center w-full h-full">
+          <form className="absolute rounded-xl m-7  bg-white w-80 h-80 flex flex-col justify-center items-center text-start" onSubmit={handleSubmit}>
+          <h1 className="text-2xl text-orange-500 mb-5">Solicitação de contato</h1>
+            <label className="text-gray-600" htmlFor="">Insira seu nome</label>
+            <input className="bg-gray-300 rounded-md px-2 py-1 mb-5 text-xs w-60 h-8" type="text" name="name" />
+            <label className="text-gray-600" htmlFor="">Insira uma mensagem</label>
             {/* <input type="text" name="description" /> */}
-            <textarea name="description">{bodyTemplate}</textarea>
-            <button type="submit">Enviar</button>
+            <textarea className="bg-gray-300 rounded-md mb-5 px-2 py-2 resize-none  w-60 h-20 text-xs" name="description">{bodyTemplate}</textarea>
+            <button className=" p-3 py-2 w-20 text-center text-1xl rounded-full text-white bg-orange-500"type="submit">Enviar</button>
           </form>
         </dialog>
       </div>
