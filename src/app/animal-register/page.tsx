@@ -3,7 +3,7 @@ import { useFormState } from "react-dom";
 import { getBreeds, getTypesOfAnimals } from "../actions";
 import InsertInfosInput from "../../components/insert-infos";
 import { useState, useEffect, FormEvent } from "react";
-import { registerAnimal } from "./actions";
+import { registerAnimal } from "./action";
 import { State } from "@/types";
 import Link from "next/link";
 
@@ -48,12 +48,12 @@ export default function AnimalRegister() {
 
   const createBase64 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-  
+
     if (file) {
       const reader = new FileReader();
 
       reader.readAsDataURL(file);
-      
+
       reader.onloadend = () => {
         let base64: string = reader.result as string
 
@@ -85,24 +85,30 @@ export default function AnimalRegister() {
 
         <div className="flex flex-rol items-center ">
           <div className="mr-6">
-            <Link  href={'/'}>
-            <img className="w-14" src="/logoSemDesc.png" alt="" />
+            <Link href={'/'}>
+              <img className="w-14" src="/logoSemDesc.png" alt="" />
             </Link>
-           
+
           </div>
         </div>
       </header>
 
-      <div className="h-screen w-screen bg-gray-300 flex justify-center items-center ">
-        <div className="bg-white w-7/10 h-4/6 mt-10 drop-shadow-4xl rounded-3xl">
-          <div className="w-full flex p-5">
-            <div className=" ml-6 h-full rounded-md font-[family-name:var(--font-be-vietnam)]">
+      <div className="h-screen w-screen bg-gray-300 flex justify-center items-center">
+        <div className="bg-white w-6/10 h-4/6 mt-10 drop-shadow-4xl rounded-3xl">
+        
+          <div className="flex p-6 justify-center">
+
+            <div className="rounded-md font-[family-name:var(--font-be-vietnam)]">
               <label htmlFor="animalPicture" className="cursor-pointer">
                 <img
-                  className=" items-center rounded-md w-56"
+                  className="items-center rounded-md w-56"
                   src={"img-input.svg"}
                   alt=""
                 />
+              <p className="flex text-gray-500 text-center justify-center m-3 ">
+                Enviar fotos do <br />
+                animalzinho
+              </p>
               </label>
 
               <input
@@ -112,24 +118,10 @@ export default function AnimalRegister() {
                 accept="image/*"
                 onChange={createBase64}
               />
-              <p className="flex text-gray-500 text-center justify-center m-3 ">
-                Enviar fotos do <br />
-                animalzinho
-              </p>
-            </div>
 
-            <form
-              className="w-4/6 font-[family-name:var(--font-be-vietnam)]"
-              onSubmit={handleSubmit}
-            >
-              <h1 className="text-orange-500 text-center ml-16 text-5xl ">
-                CADASTRO DE ANIMAL
-              </h1>
-
-                {JSON.stringify(state.errors)}
-              
-              <div className="flex flex-row gap-24">
-                <select onChange={(e) => setSelectTypeOfAnimal(e.target.value)}>
+              {/* seleção de animal */}
+              <div className="flex-col flex gap-5 mt-9 ">
+                <select onChange={(e) => setSelectTypeOfAnimal(e.target.value)} className="text-center max-w-56 p-1 px-2 text-black bg-gray-300 border-black rounded-md truncate">
                   <option selected>Animal</option>
                   {typesOfAnimals.map((typeOfAnimal, index) => (
                     <option key={index} value={typeOfAnimal.id}>
@@ -137,9 +129,9 @@ export default function AnimalRegister() {
                     </option>
                   ))}
                 </select>
-
+                {/* seleção de raça */}
                 {breeds.length > 0 && (
-                  <select name="breedId">
+                  <select name="breedId" className="text-black text-center max-w-56 p-1 px-2 bg-gray-300 border-black rounded-md truncate">
                     {breeds.map((breed, index) => (
                       <option key={index} value={breed.id}>
                         {breed.name}
@@ -148,7 +140,22 @@ export default function AnimalRegister() {
                   </select>
                 )}
 
-                <div className="first:mt-14 first:ml-16">
+              </div>
+              
+            </div>
+
+            <form
+              className="w-4/6 font-[family-name:var(--font-be-vietnam)]"
+              onSubmit={handleSubmit}>
+
+              <h1 className="text-orange-500 text-center ml-16 text-5xl ">
+                CADASTRO DE ANIMAL
+              </h1>
+
+              <div className="flex flex-row gap-24 mt-8">
+
+
+                <div className="first: first:ml-16">
                   {/* <InsertInfosInput
                     nameLabel="Tipo de animal"
                     nameInputs="tipoAnimal"
@@ -156,19 +163,19 @@ export default function AnimalRegister() {
                   <InsertInfosInput nameLabel="Raça" nameInputs="raca" /> */}
                   <InsertInfosInput nameLabel="Nome" nameInputs="nome" />
                   <InsertInfosInput nameLabel="Sexo" nameInputs="sexo" />
-                  <InsertInfosInput
+                  {/* <InsertInfosInput
                     nameLabel="Fase de vida"
                     nameInputs="faseVida"
-                  />
-                  <InsertInfosInput nameLabel="Porte" nameInputs="porte" />
+                  /> */}
+                  {/* <InsertInfosInput nameLabel="Porte" nameInputs="porte" /> */}
                 </div>
 
-                <div className="mt-14 ml-5 text-black">
-                  <InsertInfosInput
+                <div className="ml-5 text-black">
+                  {/* <InsertInfosInput
                     nameLabel="Castração"
                     nameInputs="castracao"
-                  />
-                  <InsertInfosInput nameLabel="Cor" nameInputs="cor" />
+                  /> */}
+                  {/* <InsertInfosInput nameLabel="Cor" nameInputs="cor" /> */}
                   <InsertInfosInput
                     nameLabel="Localização"
                     nameInputs="localizacao"
@@ -177,7 +184,7 @@ export default function AnimalRegister() {
                     Descrição
                   </label>
                   <textarea
-                    className="bg-gray-300 px-2 min-w-60 min-h-20 resize-none rounded-md"
+                    className="bg-gray-300 px-2 min-w-60 min-h-64 resize-none rounded-md"
                     name="descricao"
                   />
                   <button

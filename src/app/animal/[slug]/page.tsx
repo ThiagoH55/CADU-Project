@@ -12,21 +12,21 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
 
   const [animal, setAnimal] = useState<
     | ({
-        user: {
-          name: string;
-          cellPhone: string;
-        };
-        breed: {
-          name: string;
-        };
-      } & {
+      user: {
         name: string;
-        description: string;
-        id: string;
-        gender: Gender;
-        userId: string;
-        breedId: string;
-      })
+        cellPhone: string;
+      };
+      breed: {
+        name: string;
+      };
+    } & {
+      name: string;
+      description: string;
+      id: string;
+      gender: Gender;
+      userId: string;
+      breedId: string;
+    })
     | null
   >(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -66,10 +66,10 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
     <div className="font-[family-name:var(--font-be-vietnam)] h-screen">
       <Header />
 
-      <div className="bg-gray-300 flex justify-center items-center pt-20 h-full">
+      <div className="bg-gray-300 flex flex-col justify-center items-center pt-20 h-full">
         <div className="w-10/12 h-4/6 bg-white drop-shadow-3xl rounded-3xl">
           <div className="flex h-1/2 mx-7 my-7">
-            <div className="w-72">
+            <div className="w-64">
               <img
                 className="rounded-md"
                 src="https://i.pinimg.com/564x/43/b8/f7/43b8f757efbe31ed48e6875165f3ee5d.jpg"
@@ -85,8 +85,8 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
                 <AnimalData>{animal?.breed.name}</AnimalData>
               </div>
 
-              <div className="mt-36">
-                <h1 className="text-black text-3xl ">
+              <div className="mt-24">
+                <h1 className="text-black text-2xl ">
                   Doador:
                   <span className="text-orange-500">
                     {" "}
@@ -97,11 +97,11 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
             </div>
           </div>
 
-          <div className="flex mx-7 justify-center">
-            <div className="bg-gray-300 w-full min-h-48 rounded-md p-2">
-              <h2>Descrição:</h2>
+          <div className="flex mx-7 justify-center text-black">
+            <div className="bg-gray-300 w-full min-h-44 rounded-md p-2">
+              <h2 className="text-gray-600 text-lg">Descrição:</h2>
               {animal?.description.length === 0 ? (
-                <p>O animal não possui uma descrição.</p>
+                <p className="">O animal não possui uma descrição.</p>
               ) : (
                 animal?.description
               )}
@@ -109,9 +109,11 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
 
-        <button onClick={() => setModalOpen((prev) => !prev)}>
-          Solicitar adoção
-        </button>
+        <div className=" text-black flex flex-wrap">
+          <button  onClick={() => setModalOpen((prev) => !prev)}>
+            Solicitar adoção
+          </button>
+        </div>
 
         <dialog open={modalOpen} className="bg-red-800">
           <form onSubmit={handleSubmit}>
