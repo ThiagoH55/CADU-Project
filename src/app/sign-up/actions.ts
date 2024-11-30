@@ -18,9 +18,12 @@ export async function signUp(prevState: State, formData: FormData) {
 
     const schema = z.object({
         name: z.string().max(130, 'Nome muito grande'),
-        cellPhone: z.string().min(11, 'Número deve conter 11 digitos'),
+        cellPhone: z.string().length(11, 'Número deve conter 11 digitos'),
         email: z.string().email('E-mail não é válido'),
-        password: z.string().min(8)
+        password: z.string().min(8),
+        street: z.string(),
+        city: z.string(),
+        state: z.string().length(2, 'O acrônomo do estado deve conter apenas dois dígitos')
     })
 
     type SignUp = z.infer<typeof schema>
@@ -29,7 +32,10 @@ export async function signUp(prevState: State, formData: FormData) {
         name: formData.get('name') as string,
         cellPhone: formData.get('phonenumber') as string,
         email: formData.get('email') as string,
-        password: formData.get('password') as string
+        password: formData.get('password') as string,
+        street: formData.get('street') as string,
+        city: formData.get('city') as string,
+        state: formData.get('state') as string
     }
 
     const valitedFields = schema.safeParse(data)

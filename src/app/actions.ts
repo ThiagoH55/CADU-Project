@@ -36,7 +36,7 @@ export async function getAnimals() {
                 include: {
                     typeOfAnimal: true
                 }
-            }
+            },
         }
     })
     console.log('funcionando' + animals)

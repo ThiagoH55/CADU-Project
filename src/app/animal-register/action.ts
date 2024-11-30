@@ -67,5 +67,6 @@ export async function registerAnimal(prevState: State, formData: FormData) {
       userId: session!.user.id,
     },
   });
+  
   return state;
 }
