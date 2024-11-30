@@ -88,42 +88,42 @@ export default function Home() {
 
   const [animals, setAnimals] = useState<({
     breed: {
-        typeOfAnimal: {
-            id: string;
-            name: string;
-        };
-    } & {
+      typeOfAnimal: {
         id: string;
         name: string;
-        typeOfAnimalId: string;
-    };
-  } & {
+      };
+    } & {
       id: string;
       name: string;
-      description: string;
-      gender: Gender;
-      userId: string;
-      breedId: string;
+      typeOfAnimalId: string;
+    };
+  } & {
+    id: string;
+    name: string;
+    description: string;
+    gender: Gender;
+    userId: string;
+    breedId: string;
   })[]>([])
 
   const [filteredAnimals, setFilteredAnimals] = useState<({
     breed: {
-        typeOfAnimal: {
-            id: string;
-            name: string;
-        };
-    } & {
+      typeOfAnimal: {
         id: string;
         name: string;
-        typeOfAnimalId: string;
-    };
-  } & {
+      };
+    } & {
       id: string;
       name: string;
-      description: string;
-      gender: Gender;
-      userId: string;
-      breedId: string;
+      typeOfAnimalId: string;
+    };
+  } & {
+    id: string;
+    name: string;
+    description: string;
+    gender: Gender;
+    userId: string;
+    breedId: string;
   })[]>([])
 
   useEffect(() => {
@@ -149,11 +149,11 @@ export default function Home() {
 
       <div className="pt-24 flex">
         <div className="w-4/12">
-        <Filtro handleChange={filterAnimals} />
-        {/* <FiltroFase /> */}
-        <FiltroLocal />
+          <Filtro handleChange={filterAnimals} />
+          {/* <FiltroFase /> */}
+          <FiltroLocal />
         </div>
-        <div className="w-8/12 flex flex-wrap">
+        <div className="w-8/12 h-5/6 flex flex-wrap">
           {filteredAnimals.map((animal, index) => (
             <Link href={`/animal/${animal.id}`} key={index}>
               <AnimalCard {...animal} />
