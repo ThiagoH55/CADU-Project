@@ -97,7 +97,7 @@ export default function AnimalRegister() {
               <label htmlFor="animalPicture" className="cursor-pointer">
                 <img
                   className="items-center rounded-md w-56"
-                  src={"img-input.svg"}
+                  src={`${base64 ? base64 : 'img-input.svg'}`}
                   alt=""
                 />
                 <p className="flex text-gray-500 text-center justify-center m-3 ">
@@ -152,6 +152,8 @@ export default function AnimalRegister() {
                   )}
                 </div>
 
+                
+
                 <div className="first: first:ml-16">
                   {/* <InsertInfosInput
                     nameLabel="Tipo de animal"
@@ -193,6 +195,7 @@ export default function AnimalRegister() {
                 </div>
               </div>
             </form>
+{JSON.stringify(state.errors)}
           </div>
         </div>
       </div>

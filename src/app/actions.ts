@@ -53,7 +53,10 @@ export async function getAnimalById(id: string) {
             user: {
                 select: {
                     cellPhone: true,
-                    name: true
+                    name: true,
+                    state: true,
+                    city: true,
+                    street: true,
                 }
             },
             breed: {
