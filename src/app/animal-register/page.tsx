@@ -55,9 +55,7 @@ export default function AnimalRegister() {
       reader.readAsDataURL(file);
 
       reader.onloadend = () => {
-        let base64: string = reader.result as string
-
-        console.log(base64)
+        const base64 = reader.result as string;
 
         setBase64(base64);
       };
@@ -65,14 +63,14 @@ export default function AnimalRegister() {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const form = new FormData(e.currentTarget)
+    const form = new FormData(e.currentTarget);
 
-    form.append("imageBase64", base64)
+    form.append("imageBase64", base64);
 
-    formAction(form)
-  }
+    formAction(form);
+  };
 
   return (
     <div className="bg-gray-300 min-h-screen">
@@ -85,30 +83,27 @@ export default function AnimalRegister() {
 
         <div className="flex flex-rol items-center ">
           <div className="mr-6">
-            <Link href={'/'}>
+            <Link href={"/"}>
               <img className="w-14" src="/logoSemDesc.png" alt="" />
             </Link>
-
           </div>
         </div>
       </header>
 
       <div className="h-screen w-screen bg-gray-300 flex justify-center items-center">
         <div className="bg-white w-6/10 h-4/6 mt-10 drop-shadow-4xl rounded-3xl">
-        
           <div className="flex p-6 justify-center">
-
             <div className="rounded-md font-[family-name:var(--font-be-vietnam)]">
               <label htmlFor="animalPicture" className="cursor-pointer">
                 <img
                   className="items-center rounded-md w-56"
-                  src={"img-input.svg"}
+                  src={`${base64 ? base64 : 'img-input.svg'}`}
                   alt=""
                 />
-              <p className="flex text-gray-500 text-center justify-center m-3 ">
-                Enviar fotos do <br />
-                animalzinho
-              </p>
+                <p className="flex text-gray-500 text-center justify-center m-3 ">
+                  Enviar fotos do <br />
+                  animalzinho
+                </p>
               </label>
 
               <input
@@ -118,42 +113,46 @@ export default function AnimalRegister() {
                 accept="image/*"
                 onChange={createBase64}
               />
-
-              {/* seleção de animal */}
-              <div className="flex-col flex gap-5 mt-9 ">
-                <select onChange={(e) => setSelectTypeOfAnimal(e.target.value)} className="text-center max-w-56 p-1 px-2 text-black bg-gray-300 border-black rounded-md truncate">
-                  <option selected>Animal</option>
-                  {typesOfAnimals.map((typeOfAnimal, index) => (
-                    <option key={index} value={typeOfAnimal.id}>
-                      {typeOfAnimal.name}
-                    </option>
-                  ))}
-                </select>
-                {/* seleção de raça */}
-                {breeds.length > 0 && (
-                  <select name="breedId" className="text-black text-center max-w-56 p-1 px-2 bg-gray-300 border-black rounded-md truncate">
-                    {breeds.map((breed, index) => (
-                      <option key={index} value={breed.id}>
-                        {breed.name}
-                      </option>
-                    ))}
-                  </select>
-                )}
-
-              </div>
-              
             </div>
 
             <form
               className="w-4/6 font-[family-name:var(--font-be-vietnam)]"
-              onSubmit={handleSubmit}>
-
+              onSubmit={handleSubmit}
+            >
               <h1 className="text-orange-500 text-center ml-16 text-5xl ">
                 CADASTRO DE ANIMAL
               </h1>
 
               <div className="flex flex-row gap-24 mt-8">
+                {/* seleção de animal */}
+                <div className="flex-col flex gap-5 mt-9 ">
+                  <select
+                    onChange={(e) => setSelectTypeOfAnimal(e.target.value)}
+                    className="text-center max-w-56 p-1 px-2 text-black bg-gray-300 border-black rounded-md truncate"
+                  >
+                    <option selected>Animal</option>
+                    {typesOfAnimals.map((typeOfAnimal, index) => (
+                      <option key={index} value={typeOfAnimal.id}>
+                        {typeOfAnimal.name}
+                      </option>
+                    ))}
+                  </select>
+                  {/* seleção de raça */}
+                  {breeds.length > 0 && (
+                    <select
+                      name="breedId"
+                      className="text-black text-center max-w-56 p-1 px-2 bg-gray-300 border-black rounded-md truncate"
+                    >
+                      {breeds.map((breed, index) => (
+                        <option key={index} value={breed.id}>
+                          {breed.name}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </div>
 
+                
 
                 <div className="first: first:ml-16">
                   {/* <InsertInfosInput
@@ -196,6 +195,7 @@ export default function AnimalRegister() {
                 </div>
               </div>
             </form>
+{JSON.stringify(state.errors)}
           </div>
         </div>
       </div>

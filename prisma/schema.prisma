@@ -15,14 +15,15 @@ model Image {
 }
 
 model User {
-  id        String @id @default(uuid())
-  name      String @db.VarChar(180)
-  email     String @unique @db.VarChar(255)
-  cellPhone String @unique @map("cell_phone")
+  id        String  @id @default(uuid())
+  name      String  @db.VarChar(180)
+  email     String  @unique @db.VarChar(255)
+  cellPhone String  @unique @map("cell_phone") @db.VarChar(11)
   password  String
-  street    String @db.VarChar(90)
-  city      String @db.VarChar(120)
-  state     String @db.VarChar(2)
+  state     String  @db.VarChar(2)
+  city      String  @db.VarChar(120)
+  street    String  @db.VarChar(90)
+  number    String?
 
   animals Animal[]
 
@@ -36,6 +37,7 @@ model Animal {
   name        String @db.VarChar(180)
   description String @db.VarChar(400)
   gender      Gender
+  image       String @db.LongText
 
   Donation Donation?
 

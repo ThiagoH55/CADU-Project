@@ -30,6 +30,7 @@ export async function registerAnimal(prevState: State, formData: FormData) {
     // localizacao: z.string().max(150, "Texto excede o limite de caracteres"),
     descricao: z.string().max(200, "Texto muito grande, diminua um pouco"),
     breedId: z.string().uuid(),
+    image: z.string()
   });
 
   type Animal = z.infer<typeof schema>;
@@ -46,6 +47,7 @@ export async function registerAnimal(prevState: State, formData: FormData) {
     // localizacao: formData.get('localizacao') as string,
     descricao: formData.get("descricao") as string,
     breedId: formData.get("breedId") as string,
+    image: formData.get("imageBase64") as string
   };
 
   const valitedFields = schema.safeParse(data);
@@ -65,7 +67,9 @@ export async function registerAnimal(prevState: State, formData: FormData) {
       gender: data.gender,
       breedId: data.breedId,
       userId: session!.user.id,
+      image: data.image
     },
   });
+  
   return state;
 }

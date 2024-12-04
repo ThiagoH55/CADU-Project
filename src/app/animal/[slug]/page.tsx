@@ -16,6 +16,7 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
       user: {
         name: string;
         cellPhone: string;
+        city: string
       };
       breed: {
         name: string;
@@ -84,7 +85,7 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
               <div className="my-5 flex">
                 <AnimalData>{animal?.gender === 'FEMEA' ? 'Fêmea' : 'Macho'}</AnimalData>
                 <AnimalData>{animal?.breed.name}</AnimalData>
-                <AnimalData> {animal?.user.}</AnimalData>
+                <AnimalData> {animal?.user.city}</AnimalData>
               </div>
 
               <div className="mt-24">

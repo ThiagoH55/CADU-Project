@@ -54,7 +54,7 @@ export async function getAnimalById(id: string) {
                 select: {
                     cellPhone: true,
                     name: true,
-                    addresses: true
+                    city: true
                 }
             },
             breed: {

@@ -8,10 +8,45 @@ import { State } from "@/types";
 import { signIn } from "next-auth/react";
 import RoundedNextButton from "../../components/bottons";
 import Link from "next/link";
+import { Eye, EyeClosed } from "lucide-react";
 
 const initialState: State = {
   success: false,
   errors: {},
+};
+
+type EstadosBrasil = {
+  [key: string]: string
+}
+
+const estadosBrasil: EstadosBrasil = {
+  "AC": "Acre",
+  "AL": "Alagoas",
+  "AM": "Amazonas",
+  "AP": "Amapá",
+  "BA": "Bahia",
+  "CE": "Ceará",
+  "DF": "Distrito Federal",
+  "ES": "Espírito Santo",
+  "GO": "Goiás",
+  "MA": "Maranhão",
+  "MG": "Minas Gerais",
+  "MS": "Mato Grosso do Sul",
+  "MT": "Mato Grosso",
+  "PA": "Pará",
+  "PB": "Paraíba",
+  "PE": "Pernambuco",
+  "PI": "Piauí",
+  "PR": "Paraná",
+  "RJ": "Rio de Janeiro",
+  "RN": "Rio Grande do Norte",
+  "RO": "Rondônia",
+  "RR": "Roraima",
+  "RS": "Rio Grande do Sul",
+  "SC": "Santa Catarina",
+  "SE": "Sergipe",
+  "SP": "São Paulo",
+  "TO": "Tocantins"
 };
 
 export default function SignUp() {
@@ -20,6 +55,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [secondStep, setSecondStep] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
 
@@ -79,6 +115,9 @@ export default function SignUp() {
                 name="phonenumber"
                 id="phonenumber"
                 required
+                minLength={11}
+                maxLength={11}
+                onChange={(e) => e.target.value = e.target.value.replace(new RegExp("[^0-9]", "g"), "")}
               />
               <label htmlFor="email">E-mail</label>
               <input
@@ -90,16 +129,27 @@ export default function SignUp() {
               />
               <label htmlFor="password">Senha</label>
               <div className="flex gap-2">
-                <input
-                  className="flex flex-1 bg-gray-300 mb-4 h-10 rounded-xl"
-                  type="password"
-                  name="password"
-                  id="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <div className="w-full flex mb-4 h-10 relative">
+                  <input
+                    className="flex-1 bg-gray-300 rounded-xl"
+                    type={!showPassword ? 'password' : 'text'}
+                    name="password"
+                    id="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+
+                  <span className="absolute top-2 right-2 hover:cursor-pointer" onClick={() => setShowPassword((prev) => !prev)}>
+                    {showPassword ? (
+                      <Eye />
+                    ): (
+                      <EyeClosed />
+                    )}
+                  </span>
+                </div>
+
                 <button
                   className="w-10 h-10 text-3xl rounded-full text-white bg-orange-500 "
-                  type="submit"
+                  type="button"
                   onClick={() => setSecondStep(true)}
                 >
                   &#10140;{" "}
@@ -115,16 +165,19 @@ export default function SignUp() {
               <div className="flex justify-between">
                 <div className="flex flex-col w-full">
                   <label htmlFor="cpf">CPF</label>
-                  <div className="flex flex-1">
+                  <div className="w-full">
                     <input
                       className="bg-gray-300 mb-4 h-10 p-2 rounded-xl w-full mr-14"
                       type="text"
                       name="cpf"
                       id="cpf"
+                      minLength={11}
+                      maxLength={11}
+                      onChange={(e) => e.target.value = e.target.value.replace(new RegExp("[^0-9]", "g"), "")}
                     />
                   </div>
                 </div>
-                <div className="flex flex-col">
+                {/* <div className="flex flex-col">
                   <label htmlFor="gender">Gênero</label>
                   <select
                     className="bg-gray-300 mb-4 h-10 p-2 rounded-xl"
@@ -135,68 +188,61 @@ export default function SignUp() {
                     <option value={1}>Feminino</option>
                     <option value={3}>Outro</option>
                   </select>
-                </div>
+                </div> */}
               </div>
               <div className="flex justify-between">
                 <div className="flex flex-col w-full">
-                  <label htmlFor="adress">CEP</label>
-                  <input
-                    className="bg-gray-300 mb-4 h-10 p-2 mr-14 rounded-xl "
-                    type="text"
-                    name="cep"
-                    id="cep"
-                  />
+                  <label htmlFor="state">Estado</label>
+                  <select name="state" id="state" className="bg-gray-300 mb-4 h-10 p-2 rounded-xl mr-2">
+                    {Object.keys(estadosBrasil).map((key: string, index) => (
+                      <option value={key} key={index}>{estadosBrasil[key]}</option>
+                    ))}
+                  </select>
                 </div>
                 <div className="flex flex-col">
                   <label htmlFor="cidade">Cidade</label>
-                  <select
+                  <input
                     className="bg-gray-300 mb-4 h-10 p-2 rounded-xl"
-                    name="cidade"
+                    name="city"
                     id="Cidade"
-                  >
-                    <option value={0}>Selecione a cidade :p</option>
-                    <option value={1}>Abreu e Lima</option>
-                    <option value={2}>Araçoiaba</option>
-                    <option value={3}>Cabo de Santo Agostinho</option>
-                    <option value={4}>Camaragibe</option>
-                    <option value={5}>Igarassu</option>
-                    <option value={6}>Ilha de Itamaracá</option>
-                    <option value={7}>Itapissuma</option>
-                    <option value={8}>Jaboatão dos Guararapes</option>
-                    <option value={9}>Moreno</option>
-                    <option value={10}>Olinda</option>
-                    <option value={11}>Recife</option>
-                    <option value={12}>São Lourenço da Mata</option>
-                  </select>
+                    type="text"
+                  />
                 </div>
               </div>
               <label htmlFor="adress">Endereço</label>
               <input
                 className="bg-gray-300 mb-4 h-10 p-2 rounded-xl"
                 type="text"
-                name="adress"
+                name="street"
                 id="adress"
                 required
               />
               <div className="flex justify-between"></div>
             </div>
-            <div className="flex">
-              <input type="checkbox" />
-              <p className="ml-4">
-                Eu li e concordo com os termos de uso e condições.
-              </p>
-            </div>
+
+            {secondStep && (
+              <div className="flex">
+                <input type="checkbox" />
+                <p className="ml-4">
+                  Eu li e concordo com os termos de uso e condições.
+                </p>
+              </div>
+            )}
 
             <div className="flex w-9/12 justify-between items-center relative py-7 px-2 mt-6">
-              <div className="flex gap-2 rotate-180 w-fit">
-                  <RoundedNextButton onClick={()=> setSecondStep(false)} />
-              </div>
-                <button
-                  className="px-5 py-3 rounded-full text-sm text-white bg-orange-500 "
-                  type="submit"
-                >
-                  FINALIZAR
-                </button>
+              {secondStep && (
+                <>
+                  <div className="flex gap-2 rotate-180 w-fit">
+                    <RoundedNextButton onClick={() => setSecondStep(false)} />
+                  </div>
+                  <button
+                    className="px-5 py-3 rounded-full text-sm text-white bg-orange-500"
+                    type="submit"
+                  >
+                    FINALIZAR
+                  </button>
+                </>
+              )}
             </div>
 
             {Object.keys(state.errors).length > 0 && (
