@@ -84,6 +84,7 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
               <div className="my-5 flex">
                 <AnimalData>{animal?.gender === 'FEMEA' ? 'Fêmea' : 'Macho'}</AnimalData>
                 <AnimalData>{animal?.breed.name}</AnimalData>
+                <AnimalData> {animal?.user.}</AnimalData>
               </div>
 
               <div className="mt-24">
@@ -116,17 +117,24 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
           </button>
         </div>
 
+{/* 
         <dialog open={modalOpen} className="fixed bg-black bg-opacity-50 inset-0 z-50 backdrop-blur-sm flex justify-center items-center w-full h-full">
-          <form className="absolute rounded-xl m-7  bg-white w-80 h-80 flex flex-col justify-center items-center text-start" onSubmit={handleSubmit}>
-          <h1 className="text-2xl text-orange-500 mb-5">Solicitação de contato</h1>
+          <form className="absolute rounded-xl m-7 bg-white w-80 h-80 flex flex-col justify-center items-center text-start" onSubmit={handleSubmit}>
+            <div className="relative w-full px-">
+              <button type="button" className="rotate-180 text-2xl text-gray-500 absolute top-0 right-0 -mt-5 p-1" onClick={() => setModalOpen((prev) => !prev)}>
+              ⨯
+              </button>
+            </div>
+
+            <h1 className="text-2xl text-orange-500 mb-5">Solicitação de contato</h1>
             <label className="text-gray-600" htmlFor="">Insira seu nome</label>
             <input className="bg-gray-300 rounded-md px-2 py-1 mb-5 text-xs w-60 h-8" type="text" name="name" />
             <label className="text-gray-600" htmlFor="">Insira uma mensagem</label>
-            {/* <input type="text" name="description" /> */}
+            <input type="text" name="description" />
             <textarea className="bg-gray-300 rounded-md mb-5 px-2 py-2 resize-none  w-60 h-20 text-xs" name="description">{bodyTemplate}</textarea>
-            <button className=" p-3 py-2 w-20 text-center text-1xl rounded-full text-white bg-orange-500"type="submit">Enviar</button>
+            <button className=" p-3 py-2 w-20 text-center text-1xl rounded-full text-white bg-orange-500" type="submit">Enviar</button>
           </form>
-        </dialog>
+        </dialog> */}
       </div>
     </div>
   );
