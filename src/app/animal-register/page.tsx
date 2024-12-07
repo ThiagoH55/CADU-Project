@@ -123,34 +123,10 @@ export default function AnimalRegister() {
                 CADASTRO DE ANIMAL
               </h1>
 
+
               <div className="flex flex-row gap-24 mt-8">
                 {/* seleção de animal */}
-                <div className="flex-col flex gap-5 mt-9 ">
-                  <select
-                    onChange={(e) => setSelectTypeOfAnimal(e.target.value)}
-                    className="text-center max-w-56 p-1 px-2 text-black bg-gray-300 border-black rounded-md truncate"
-                  >
-                    <option selected>Animal</option>
-                    {typesOfAnimals.map((typeOfAnimal, index) => (
-                      <option key={index} value={typeOfAnimal.id}>
-                        {typeOfAnimal.name}
-                      </option>
-                    ))}
-                  </select>
-                  {/* seleção de raça */}
-                  {breeds.length > 0 && (
-                    <select
-                      name="breedId"
-                      className="text-black text-center max-w-56 p-1 px-2 bg-gray-300 border-black rounded-md truncate"
-                    >
-                      {breeds.map((breed, index) => (
-                        <option key={index} value={breed.id}>
-                          {breed.name}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                </div>
+                
 
                 
 
@@ -167,6 +143,35 @@ export default function AnimalRegister() {
                     nameInputs="faseVida"
                   /> */}
                   {/* <InsertInfosInput nameLabel="Porte" nameInputs="porte" /> */}
+
+                  <div className="flex-col flex gap-5 mt-9 ">
+                  <select
+                    onChange={(e) => setSelectTypeOfAnimal(e.target.value)}
+                    className="text-center max-w-56 p-1 px-2 mb-5 text-black bg-gray-300 border-black rounded-md truncate"
+                  >
+                    <option selected>Animal</option>
+                    {typesOfAnimals.map((typeOfAnimal, index) => (
+                      <option key={index} value={typeOfAnimal.id}>
+                        {typeOfAnimal.name}
+                      </option>
+                    ))} 
+                  </select>
+                  {/* seleção de raça */}
+                  {breeds.length > 0 && (
+                    <select
+                      name="breedId"
+                      className="text-black text-center max-w-56 p-1 px-2 bg-gray-300 border-black rounded-md truncate"
+                    >
+                      {breeds.map((breed, index) => (
+                        <option key={index} value={breed.id}>
+                          {breed.name}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </div>
+
+                  
                 </div>
 
                 <div className="ml-5 text-black">
@@ -183,7 +188,7 @@ export default function AnimalRegister() {
                     Descrição
                   </label>
                   <textarea
-                    className="bg-gray-300 px-2 min-w-60 min-h-64 resize-none rounded-md"
+                    className="bg-gray-300  min-w-60 min-h-64 resize-none rounded-md p-1 px-2"
                     name="descricao"
                   />
                   <button

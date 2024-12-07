@@ -103,14 +103,14 @@ export default function SignUp() {
             >
               <label htmlFor="name">Nome Completo</label>
               <input
-                className="bg-gray-300 mb-4 h-10 rounded-xl"
+                className="bg-gray-300 mb-4 h-10 rounded-xl p-2"
                 type="text"
                 name="name"
                 id="name"
               />
               <label htmlFor="phonenumber">Telefone</label>
               <input
-                className="bg-gray-300 mb-4 h-10 rounded-xl"
+                className="bg-gray-300 mb-4 h-10 rounded-xl p-2"
                 type="text"
                 name="phonenumber"
                 id="phonenumber"
@@ -121,7 +121,7 @@ export default function SignUp() {
               />
               <label htmlFor="email">E-mail</label>
               <input
-                className="bg-gray-300 mb-4 h-10 rounded-xl"
+                className="bg-gray-300 mb-4 h-10 rounded-xl p-2"
                 type="email"
                 name="email"
                 id="email"
@@ -131,7 +131,7 @@ export default function SignUp() {
               <div className="flex gap-2">
                 <div className="w-full flex mb-4 h-10 relative">
                   <input
-                    className="flex-1 bg-gray-300 rounded-xl"
+                    className="flex-1 bg-gray-300 rounded-xl p-2"
                     type={!showPassword ? 'password' : 'text'}
                     name="password"
                     id="password"
