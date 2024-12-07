@@ -126,9 +126,9 @@ export default function AnimalRegister() {
 
               <div className="flex flex-row gap-24 mt-8">
                 {/* seleção de animal */}
-                
 
-                
+
+
 
                 <div className="first: first:ml-16">
                   {/* <InsertInfosInput
@@ -137,7 +137,13 @@ export default function AnimalRegister() {
                   />
                   <InsertInfosInput nameLabel="Raça" nameInputs="raca" /> */}
                   <InsertInfosInput nameLabel="Nome" nameInputs="nome" />
-                  <InsertInfosInput nameLabel="Sexo" nameInputs="sexo" />
+                  
+                  <select name="sexo" className="text-center max-w-56 p-1 px-2 mb-5 text-black bg-gray-300 border-black rounded-md truncate"
+                  >
+                    <option value="MACHO">Macho</option>
+                    <option value="FEMEA">Fêmea</option>
+                  </select>
+
                   {/* <InsertInfosInput
                     nameLabel="Fase de vida"
                     nameInputs="faseVida"
@@ -145,33 +151,33 @@ export default function AnimalRegister() {
                   {/* <InsertInfosInput nameLabel="Porte" nameInputs="porte" /> */}
 
                   <div className="flex-col flex gap-5 mt-9 ">
-                  <select
-                    onChange={(e) => setSelectTypeOfAnimal(e.target.value)}
-                    className="text-center max-w-56 p-1 px-2 mb-5 text-black bg-gray-300 border-black rounded-md truncate"
-                  >
-                    <option selected>Animal</option>
-                    {typesOfAnimals.map((typeOfAnimal, index) => (
-                      <option key={index} value={typeOfAnimal.id}>
-                        {typeOfAnimal.name}
-                      </option>
-                    ))} 
-                  </select>
-                  {/* seleção de raça */}
-                  {breeds.length > 0 && (
                     <select
-                      name="breedId"
-                      className="text-black text-center max-w-56 p-1 px-2 bg-gray-300 border-black rounded-md truncate"
+                      onChange={(e) => setSelectTypeOfAnimal(e.target.value)}
+                      className="text-center max-w-56 p-1 px-2 mb-5 text-black bg-gray-300 border-black rounded-md truncate"
                     >
-                      {breeds.map((breed, index) => (
-                        <option key={index} value={breed.id}>
-                          {breed.name}
+                      <option selected>Animal</option>
+                      {typesOfAnimals.map((typeOfAnimal, index) => (
+                        <option key={index} value={typeOfAnimal.id}>
+                          {typeOfAnimal.name}
                         </option>
                       ))}
                     </select>
-                  )}
-                </div>
+                    {/* seleção de raça */}
+                    {breeds.length > 0 && (
+                      <select
+                        name="breedId"
+                        className="text-black text-center max-w-56 p-1 px-2 bg-gray-300 border-black rounded-md truncate"
+                      >
+                        {breeds.map((breed, index) => (
+                          <option key={index} value={breed.id}>
+                            {breed.name}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                  </div>
 
-                  
+
                 </div>
 
                 <div className="ml-5 text-black">
@@ -200,7 +206,14 @@ export default function AnimalRegister() {
                 </div>
               </div>
             </form>
-{JSON.stringify(state.errors)}
+
+            {Object.keys(state.errors).length > 0 && (
+              <div>
+                {Object.values(state.errors).flatMap((error, index) => (
+                  <div key={index}>{error}</div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

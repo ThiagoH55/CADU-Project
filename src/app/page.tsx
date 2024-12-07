@@ -97,11 +97,16 @@ export default function Home() {
       name: string;
       typeOfAnimalId: string;
     };
+    user: {
+      state: string;
+      city: string;
+    };
   } & {
     id: string;
     name: string;
     description: string;
     gender: Gender;
+    image: string;
     userId: string;
     breedId: string;
   })[]>([])
@@ -117,11 +122,16 @@ export default function Home() {
       name: string;
       typeOfAnimalId: string;
     };
+    user: {
+      state: string;
+      city: string;
+    };
   } & {
     id: string;
     name: string;
     description: string;
     gender: Gender;
+    image: string;
     userId: string;
     breedId: string;
   })[]>([])

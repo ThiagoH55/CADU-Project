@@ -36,6 +36,12 @@ export async function getAnimals() {
                 include: {
                     typeOfAnimal: true
                 }
+            },
+            user: {
+                select: {
+                    state: true,
+                    city: true
+                }
             }
         }
     })

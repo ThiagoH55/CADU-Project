@@ -30,7 +30,7 @@ export async function registerAnimal(prevState: State, formData: FormData) {
     // localizacao: z.string().max(150, "Texto excede o limite de caracteres"),
     descricao: z.string().max(200, "Texto muito grande, diminua um pouco"),
     breedId: z.string().uuid(),
-    image: z.string()
+    image: z.string().min(1, { message: 'Imagem é obrigatória' })
   });
 
   type Animal = z.infer<typeof schema>;

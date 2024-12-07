@@ -12,11 +12,11 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
     "Olá, vi seu bichinho no CADU e...";
 
   const [animal, setAnimal] = useState<
-    | ({
+    ({
       user: {
         name: string;
         cellPhone: string;
-        city: string
+        city: string;
       };
       breed: {
         name: string;
@@ -26,11 +26,10 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
       description: string;
       id: string;
       gender: Gender;
+      image: string;
       userId: string;
       breedId: string;
-    })
-    | null
-  >(null);
+    }) | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -73,9 +72,9 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
           <div className="flex h-1/2 mx-7 my-7">
             <div className="w-64">
               <img
-                className="rounded-md"
-                src="https://i.pinimg.com/564x/43/b8/f7/43b8f757efbe31ed48e6875165f3ee5d.jpg"
-                alt=""
+                className="rounded-md w-full h-full"
+                src={animal?.image}
+                alt="Foto do Animalzinho"
               />
             </div>
 
@@ -118,7 +117,7 @@ export default function AnimalPage({ params }: { params: { slug: string } }) {
           </button>
         </div>
 
-{/* 
+        {/* 
         <dialog open={modalOpen} className="fixed bg-black bg-opacity-50 inset-0 z-50 backdrop-blur-sm flex justify-center items-center w-full h-full">
           <form className="absolute rounded-xl m-7 bg-white w-80 h-80 flex flex-col justify-center items-center text-start" onSubmit={handleSubmit}>
             <div className="relative w-full px-">
