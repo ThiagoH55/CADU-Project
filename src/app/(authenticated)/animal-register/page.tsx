@@ -1,7 +1,7 @@
 "use client";
 import { useFormState } from "react-dom";
-import { getBreeds, getTypesOfAnimals } from "../actions";
-import InsertInfosInput from "../../components/insert-infos";
+import { getBreeds, getTypesOfAnimals } from "../../actions";
+import InsertInfosInput from "../../../components/insert-infos";
 import { useState, useEffect, FormEvent } from "react";
 import { registerAnimal } from "./action";
 import { State } from "@/types";

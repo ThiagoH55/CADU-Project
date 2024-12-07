@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { useState, FormEvent, useEffect } from "react"
 import { z } from "zod"
 import { signIn as nextAuthSignIn } from 'next-auth/react'
-import RoundedNextButton from "../../components/bottons"
+import RoundedNextButton from "../../../components/bottons"
 import Link from "next/link"
 
 const carouselImages = [
@@ -29,7 +29,7 @@ export default function SignIn() {
 
         const schema = z.object({
             email: z.string().email('E-mail não é válido'),
-            password: z.string().min(8)
+            password: z.string().min(8, {message: "Senha não atende ao tamanho necessário"})
         })
 
         type SignUp = z.infer<typeof schema>
@@ -55,7 +55,7 @@ export default function SignIn() {
 
         if (!login?.ok) {
             setErrors({
-                general: 'Revise suas credenciais de acesso.'
+                general: 'E-mail ou senha incorreta'
             })
 
             return
@@ -108,13 +108,15 @@ export default function SignIn() {
                                 <RoundedNextButton type="submit" />
                             </div>
                             <Link className="text-sm mt-2 ml-1 text-blue-500" href={""}>Esqueceu a senha?</Link>
-                        {Object.keys(errors).length > 0 && (
+
+                            {Object.keys(errors).length > 0 && (
                             <div>
-                                {(Object.entries(errors) as []).map((error, index) => (
-                                    <p className="text-left ml-1 mt-4 w-full text-wrap text-red-500 text-sm" key={index}>{error[0]} {error[1]}</p>
+                                {(Object.values(errors) as []).flatMap((error, index) => (
+                                <p className="text-left ml-1 mt-4 w-full text-wrap text-red-500 text-sm" key={index}>{error}</p>
                                 ))}
                             </div>
-                        )}
+                            )}
+
                             <div className="text-center mt-7 text-orange-500 text-sm">
                                 <p>Ainda não possui uma conta?</p>
                                 <Link className=" mt-2 ml-1 text-blue-500 text-sm" href={"/sign-up"}>Cadastra-se</Link>
