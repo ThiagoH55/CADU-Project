@@ -22,15 +22,16 @@ export async function registerAnimal(prevState: State, formData: FormData) {
     // tipoAnimal: z.string().max(130, 'Nome muito grande'),
     // especie: z.string(),
     gender: z.enum(["MACHO", "FEMEA"]),
-    nome: z.string().max(100, "Nome muito grande").min(1, "É necessario que o animal tenha um nome"),
+    nome: z.string().max(100, "Nome muito grande").min(1, "*Dê um nome ao animalzinho*"),
     // faseVida: z.enum(["Filhote", "Adulto", "Idoso"]),
     // porte: z.enum(["Pequeno", "Médio", "Grande"]),
     // castracao: z.boolean(),
     // cor: z.string().max(15, "Texto excede o limite de caracteres"),
     // localizacao: z.string().max(150, "Texto excede o limite de caracteres"),
     descricao: z.string().max(200, "Texto muito grande, diminua um pouco"),
-    breedId: z.string().uuid(),
-    image: z.string().min(1, { message: 'Imagem é obrigatória' })
+    breedId: z.string({required_error: '*Selecione uma raça*', invalid_type_error:'*Selecione uma raça*'}).uuid({ message: '*Selecione uma raça*' }
+    ),
+    image: z.string().min(1, { message: '*Imagem é obrigatória*' })
   });
 
   type Animal = z.infer<typeof schema>;

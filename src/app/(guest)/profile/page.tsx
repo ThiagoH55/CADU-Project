@@ -64,8 +64,10 @@ export default function Profile() {
                     </header>
                 </div>
 
+
+
                 <div className="ml-16  mt-10">
-                    <img className="rounded-full border-2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj2LfHjdVAKEJhUQDwvn1Z7aLXv-xGFLqorNJEaciDuT3y2ZB69bsj5FrHIznxfWKvaJs&usqp=CAU" alt="" />
+                    <img className="rounded-full border-4 border-white" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj2LfHjdVAKEJhUQDwvn1Z7aLXv-xGFLqorNJEaciDuT3y2ZB69bsj5FrHIznxfWKvaJs&usqp=CAU" alt="" />
                 </div>
 
             </div>
@@ -73,10 +75,11 @@ export default function Profile() {
             <div>
 
                 <div className="text-orange-500 text-4xl ml-16 mt-10">
-                <h1 >
-                    {animal?.user.name}
-                    Doações
-                </h1>
+                    <h1 >
+
+                        Doações
+
+                    </h1>
                 </div>
 
                 <div>

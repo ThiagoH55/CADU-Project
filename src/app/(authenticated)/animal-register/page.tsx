@@ -91,17 +91,17 @@ export default function AnimalRegister() {
       </header>
 
       <div className="h-screen w-screen bg-gray-300 flex justify-center items-center">
-        <div className="bg-white w-6/10 h-4/6 mt-10 drop-shadow-4xl rounded-3xl">
+        <div className="bg-white w-10/12 h-4/6 mt-10 drop-shadow-4xl rounded-3xl">
           <div className="flex p-6 justify-center">
-            <div className="rounded-md font-[family-name:var(--font-be-vietnam)]">
-              <label htmlFor="animalPicture" className="cursor-pointer">
+            <div className="rounded-md flex-col justify-center font-[family-name:var(--font-be-vietnam)]">
+              <label htmlFor="animalPicture" className="cursor-pointer flex-col flex">
                 <img
-                  className="items-center rounded-md w-56"
+                  className="self-center justify-center items-center rounded-md w-56"
                   src={`${base64 ? base64 : 'img-input.svg'}`}
                   alt=""
                 />
                 <p className="flex text-gray-500 text-center justify-center m-3 ">
-                  Enviar fotos do <br />
+                  Enviar foto do <br />
                   animalzinho
                 </p>
               </label>
@@ -113,6 +113,14 @@ export default function AnimalRegister() {
                 accept="image/*"
                 onChange={createBase64}
               />
+
+              {Object.keys(state.errors).length > 0 && (
+                <div className="mb-4">
+                  {Object.entries(state.errors).map((error, index) => (
+                    <p className="text-center mt-3 w-full text-wrap text-red-500 text-sm" key={index}>{error[1]}</p>
+                  ))}
+                </div>
+              )}
             </div>
 
             <form
@@ -137,8 +145,8 @@ export default function AnimalRegister() {
                   />
                   <InsertInfosInput nameLabel="Raça" nameInputs="raca" /> */}
                   <InsertInfosInput nameLabel="Nome" nameInputs="nome" />
-                  
-                  <select name="sexo" className="text-center max-w-56 p-1 px-2 mb-5 text-black bg-gray-300 border-black rounded-md truncate"
+
+                  <select name="sexo" className="text-center w-56 p-1 px-2 mb-5 mt-5 text-black bg-gray-300 border-black rounded-md truncate"
                   >
                     <option value="MACHO">Macho</option>
                     <option value="FEMEA">Fêmea</option>
@@ -150,7 +158,7 @@ export default function AnimalRegister() {
                   /> */}
                   {/* <InsertInfosInput nameLabel="Porte" nameInputs="porte" /> */}
 
-                  <div className="flex-col flex gap-5 mt-9 ">
+                  <div className="flex-col flex gap-5 mt-5 ">
                     <select
                       onChange={(e) => setSelectTypeOfAnimal(e.target.value)}
                       className="text-center max-w-56 p-1 px-2 mb-5 text-black bg-gray-300 border-black rounded-md truncate"
@@ -200,19 +208,13 @@ export default function AnimalRegister() {
                   <button
                     className="flex mt-10 px-5 py-3 justify-self-center rounded-full text-sm text-white bg-orange-500 "
                     type="submit"
-                    >
+                  >
                     CADASTRAR
                   </button>
                 </div>
-              {Object.keys(state.errors).length > 0 && (
-              <div className="mb-4">
-                {Object.entries(state.errors).map((error, index) => (
-                  <p className="text-left ml-1 mt-4 w-full text-wrap text-red-500 text-sm" key={index}>{error[1]}</p>
-                ))}
+
               </div>
-              )}
-              </div>
-              
+
 
             </form>
 
