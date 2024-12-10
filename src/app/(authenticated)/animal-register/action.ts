@@ -22,7 +22,7 @@ export async function registerAnimal(prevState: State, formData: FormData) {
     // tipoAnimal: z.string().max(130, 'Nome muito grande'),
     // especie: z.string(),
     gender: z.enum(["MACHO", "FEMEA"]),
-    nome: z.string().max(100, "Nome muito grande"),
+    nome: z.string().max(100, "Nome muito grande").min(1, "É necessario que o animal tenha um nome"),
     // faseVida: z.enum(["Filhote", "Adulto", "Idoso"]),
     // porte: z.enum(["Pequeno", "Médio", "Grande"]),
     // castracao: z.boolean(),

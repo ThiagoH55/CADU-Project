@@ -200,20 +200,22 @@ export default function AnimalRegister() {
                   <button
                     className="flex mt-10 px-5 py-3 justify-self-center rounded-full text-sm text-white bg-orange-500 "
                     type="submit"
-                  >
+                    >
                     CADASTRAR
                   </button>
                 </div>
-              </div>
-            </form>
-
-            {Object.keys(state.errors).length > 0 && (
-              <div>
-                {Object.values(state.errors).flatMap((error, index) => (
-                  <div key={index}>{error}</div>
+              {Object.keys(state.errors).length > 0 && (
+              <div className="mb-4">
+                {Object.entries(state.errors).map((error, index) => (
+                  <p className="text-left ml-1 mt-4 w-full text-wrap text-red-500 text-sm" key={index}>{error[1]}</p>
                 ))}
               </div>
-            )}
+              )}
+              </div>
+              
+
+            </form>
+
           </div>
         </div>
       </div>
